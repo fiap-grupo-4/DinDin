@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import "./tokens/index.css";
+
+@theme inline {
+  /* Fonts */
+  --font-lato: var(--font-lato);
+
+  /* Typography */
+  --font-size-xs: var(--font-size-xs);
+  --font-size-sm: var(--font-size-sm);
+  --font-size-md: var(--font-size-md);
+  --font-size-lg: var(--font-size-lg);
+  --font-size-xl: var(--font-size-xl);
+  --font-size-2xl: var(--font-size-2xl);
+  --font-size-3xl: var(--font-size-3xl);
+  --font-size-4xl: var(--font-size-4xl);
+
+  /* Colors */
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+
+  --color-info-100: var(--info-100);
+  --color-info-200: var(--info-200);
+  --color-info-300: var(--info-300);
+  --color-info-400: var(--info-400);
+  --color-info-500: var(--info-500);
+  --color-info-600: var(--info-600);
+
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+
+  --color-danger-100: var(--danger-100);
+  --color-danger-200: var(--danger-200);
+  --color-danger-300: var(--danger-300);
+  --color-danger-400: var(--danger-400);
+  --color-danger-500: var(--danger-500);
+  --color-danger-600: var(--danger-600);
+
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+}
+
+body {
+  font-family: var(--font-lato);
+}
