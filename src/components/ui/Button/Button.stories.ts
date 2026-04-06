@@ -12,6 +12,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     onClick: fn(),
+    disabled: false,
   },
 } satisfies Meta<typeof Button>;
 
