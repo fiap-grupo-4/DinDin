@@ -1,41 +1,42 @@
 :root {
-  /* Gray */
-  --gray-100: #f7f7f7;
-  --gray-200: #ededed;
-  --gray-300: #dedede;
-  --gray-400: #adadad;
-  --gray-500: #888888;
-  --gray-600: #676767;
-  --gray-700: #363636;
-  /* Success */
+  --gray-100: #ffffff;
+  --gray-200: #f7f7f7;
+  --gray-300: #ededed;
+  --gray-400: #dedede;
+  --gray-500: #adadad;
+  --gray-600: #888888;
+  --gray-700: #676767;
+  --gray-800: #363636;
+  --gray-900: #000000;
+
   --success-100: #dcfce8;
   --success-200: #bbf7d1;
   --success-300: #4ade81;
   --success-400: #16a34a;
   --success-500: #166533;
   --success-600: #052e14;
-  /* Info */
+
   --info-100: #dcf6ff;
   --info-200: #6de4ff;
   --info-300: #20d7ff;
   --info-400: #009ddf;
   --info-500: #006a94;
   --info-600: #003751;
-  /* Warning */
+
   --warning-100: #fff986;
   --warning-200: #ffed41;
   --warning-300: #ffdc0d;
   --warning-400: #eebf00;
   --warning-500: #d19600;
   --warning-600: #a66b02;
-  /* Danger  */
+
   --danger-100: #fdced6;
   --danger-200: #fba6b4;
   --danger-300: #f8748d;
   --danger-400: #ef2d57;
   --danger-500: #bb1546;
   --danger-600: #9c1540;
-  /* Brand */
+
   --brand-100: #ebfef6;
   --brand-200: #a4f6d3;
   --brand-300: #2fd89f;

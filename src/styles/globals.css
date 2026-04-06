@@ -2,20 +2,23 @@
 @import "./tokens/index.css";
 
 @theme inline {
-  /* Fonts */
   --font-lato: var(--font-lato);
 
-  /* Typography */
-  --font-size-xs: var(--font-size-xs);
-  --font-size-sm: var(--font-size-sm);
-  --font-size-md: var(--font-size-md);
-  --font-size-lg: var(--font-size-lg);
-  --font-size-xl: var(--font-size-xl);
-  --font-size-2xl: var(--font-size-2xl);
-  --font-size-3xl: var(--font-size-3xl);
-  --font-size-4xl: var(--font-size-4xl);
+  --text-body-sm: var(--text-body-sm);
+  --text-body-md: var(--text-body-md);
+  --text-body-lg: var(--text-body-lg);
 
-  /* Colors */
+  --text-heading-xs: var(--text-heading-xs);
+  --text-heading-sm: var(--text-heading-sm);
+  --text-heading-md: var(--text-heading-md);
+  --text-heading-lg: var(--text-heading-lg);
+  --text-heading-xl: var(--text-heading-xl);
+
+  --leading-body: var(--leading-body);
+  --leading-heading: var(--leading-heading);
+
+  --color-background: var(--gray-200);
+
   --color-gray-100: var(--gray-100);
   --color-gray-200: var(--gray-200);
   --color-gray-300: var(--gray-300);
@@ -63,5 +66,8 @@
 }
 
 body {
+  box-sizing: border-box;
+
   font-family: var(--font-lato);
+  background-color: var(--color-background);
 }
