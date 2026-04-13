@@ -1,17 +1,26 @@
+import { Icon, IconName } from "../Icon";
+
 type ButtonKind = "primary" | "secondary" | "danger";
+type ButtonSize = "md" | "sm";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
+  icon?: IconName;
+  size?: ButtonSize;
   kind?: ButtonKind;
 }
 
 export function Button({
   label,
   kind = "primary",
+  size = "md",
   type = "button",
   className = "",
+  icon,
   ...props
 }: ButtonProps) {
+  const buttonSize = size === "md" ? "h-11" : "h-8";
+
   const buttonKinds: Record<ButtonKind, string> = {
     primary:
       "text-brand-100 border-brand-600 bg-brand-600 hover:bg-brand-700 focus:bg-brand-800 disabled:opacity-50 disabled:bg-brand-600 disabled:cursor-not-allowed",
@@ -24,10 +33,11 @@ export function Button({
   return (
     <button
       type={type}
-      className={`cursor-pointer h-11 py-1 px-3 border rounded-sm flex items-center gap-1 text-body-lg leading-body ${buttonKinds[kind]} ${className}`}
+      className={`py-1 px-3 border rounded-sm flex items-center gap-1 text-body-lg leading-body ${buttonSize} ${buttonKinds[kind]} ${className}`}
       {...props}
     >
-      {label}
+      <span className={icon ? "pb-1" : ""}>{label}</span>
+      {icon && <Icon name={icon} />}
     </button>
   );
 }
