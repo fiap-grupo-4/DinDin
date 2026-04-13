@@ -22,7 +22,7 @@ export function WelcomeCardBalanceBtn({ balance }: WelcomeCardBalanceBtnProps) {
       <Icon name={showBalance ? "EyeLine" : "EyeCloseLine"} />
       {showBalance ? (
         <span
-          className={`text-heading-lg leading-heading ${balance < 0 ? "text-danger-400" : ""}`}
+          className={`sm:text-heading-sm md:text-heading-lg md:leading-heading ${balance < 0 ? "text-danger-400" : ""}`}
         >
           {maskUtils.getCurrencyMask(balance)}
         </span>

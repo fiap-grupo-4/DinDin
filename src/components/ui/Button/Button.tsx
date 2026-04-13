@@ -36,7 +36,7 @@ export function Button({
       className={`py-1 px-3 border rounded-sm flex items-center gap-1 text-body-lg leading-body ${buttonSize} ${buttonKinds[kind]} ${className}`}
       {...props}
     >
-      <span className={icon ? "pb-1" : ""}>{label}</span>
+      <span className={icon ? "pb-px" : ""}>{label}</span>
       {icon && <Icon name={icon} />}
     </button>
   );

@@ -40,11 +40,11 @@ export default async function Home() {
 
   return (
     <>
-      <div className="col-span-6 flex flex-col gap-3">
+      <div className="sm:mt-6 md:mt-0 sm:col-span-10 md:col-span-6 flex flex-col gap-3">
         <WelcomeCard balance={balance} />
         <SummaryCard incomes={totalIncomes} expenses={totalExpenses} />
       </div>
-      <div className="col-span-4">
+      <div className="sm:mb-6 md:mb-0 sm:col-span-10 md:col-span-4">
         <RecentsTransactionsCard transactions={transactions} />
       </div>
     </>
