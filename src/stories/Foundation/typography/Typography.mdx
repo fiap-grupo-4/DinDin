@@ -1,0 +1,50 @@
+import { Meta, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import { TypographySamples } from "./TypographySamples";
+import { TypographyScaleOverview } from "./TypographyScaleOverview";
+import {
+  FontFamilyTable,
+  LineHeightTable,
+  TypeScaleTable,
+} from "./TypographyTables";
+
+<Meta title="Foundation/Typography" />
+
+<Title>Typography</Title>
+
+<Subtitle>
+  Size tokens are defined in <code>src/styles/tokens/typography.css</code>. The
+  font stack is set in <code>src/styles/tokens/fonts.css</code>.{" "}
+  <code>globals.css</code> mirrors sizes under <code>@theme inline</code> so
+  Tailwind utilities like <code>text-heading-md</code> work.
+</Subtitle>
+
+## Font family
+
+<FontFamilyTable />
+
+Applied on <code>body</code> via <code>font-family: var(--font-lato);</code>.
+
+## Type scale
+
+<TypeScaleTable />
+
+### Samples
+
+Paragraph samples use <code>var(--font-lato)</code>, each row’s <code>font-size</code> and <code>line-height</code> from the tokens below.
+
+<TypographySamples />
+
+## Line height
+
+<LineHeightTable />
+
+<code>h1</code> uses <code>--text-heading-xl</code> and
+<code>--leading-heading</code>; <code>h2</code> uses
+<code>--text-heading-md</code> and <code>--leading-heading</code>.
+
+## Scale overview
+
+Each line uses only theme <code>font-size</code> tokens (plus <code>--leading-heading</code> for line height). Resolved values reflect what is in your CSS files.
+
+<TypographyScaleOverview />

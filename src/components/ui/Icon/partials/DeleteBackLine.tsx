@@ -1,0 +1,26 @@
+import type { SVGProps } from "react";
+const SvgDeleteBackLine = ({
+  fill = "currentColor",
+  ...props
+}: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <g clipPath="url(#delete-back-line_svg__a)">
+      <path
+        fill={fill}
+        d="M6.535 3H21a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6.535a1 1 0 0 1-.832-.445l-5.333-8a1 1 0 0 1 0-1.11l5.333-8A1 1 0 0 1 6.535 3m.535 2-4.666 7 4.666 7H20V5zM16 11v2H9v-2z"
+      />
+    </g>
+    <defs>
+      <clipPath id="delete-back-line_svg__a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+export default SvgDeleteBackLine;

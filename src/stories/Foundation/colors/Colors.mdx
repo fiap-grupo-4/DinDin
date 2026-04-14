@@ -1,0 +1,49 @@
+import { Meta, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import { ColorsPalette } from "./ColorsGrid";
+import {
+  brandColorVars,
+  dangerColorVars,
+  grayColorVars,
+  infoColorVars,
+  successColorVars,
+  warningColorVars,
+} from "./colorVariableNames";
+
+<Meta title="Foundation/Colors" />
+
+<Title>Colors</Title>
+
+<Subtitle>
+  Design tokens live in <code>src/styles/tokens/colors.css</code>. They are
+  wired into Tailwind via <code>@theme inline</code> in{" "}
+  <code>src/styles/globals.css</code>.
+</Subtitle>
+
+## Gray
+
+<ColorsPalette tokens={grayColorVars} columns={4} />
+
+## Success
+
+<ColorsPalette tokens={successColorVars} columns={4} />
+
+## Info
+
+<ColorsPalette tokens={infoColorVars} columns={4} />
+
+## Warning
+
+<ColorsPalette tokens={warningColorVars} columns={4} />
+
+## Danger
+
+<ColorsPalette tokens={dangerColorVars} columns={4} />
+
+## Brand
+
+<ColorsPalette tokens={brandColorVars} columns={4} />
+
+## Usage in Tailwind
+
+Use semantic color utilities such as <code>text-brand-600</code>, <code>bg-gray-200</code>, <code>text-success-400</code>, which map to the <code>--color-\*</code> theme keys above.
