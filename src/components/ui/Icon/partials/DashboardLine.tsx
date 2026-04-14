@@ -1,0 +1,26 @@
+import type { SVGProps } from "react";
+const SvgDashboardLine = ({
+  fill = "currentColor",
+  ...props
+}: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <g clipPath="url(#dashboard-line_svg__a)">
+      <path
+        fill={fill}
+        d="M13 21V11h8v10zM3 13V3h8v10zm6-2V5H5v6zM3 21v-6h8v6zm2-2h4v-2H5zm10 0h4v-6h-4zM13 3h8v6h-8zm2 2v2h4V5z"
+      />
+    </g>
+    <defs>
+      <clipPath id="dashboard-line_svg__a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+export default SvgDashboardLine;

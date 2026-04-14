@@ -1,0 +1,26 @@
+import type { SVGProps } from "react";
+const SvgExternalLinkLine = ({
+  fill = "currentColor",
+  ...props
+}: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <g clipPath="url(#external-link-line_svg__a)">
+      <path
+        fill={fill}
+        d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm11-3v8h-2V6.413l-7.793 7.794-1.414-1.414L17.585 5H13V3z"
+      />
+    </g>
+    <defs>
+      <clipPath id="external-link-line_svg__a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+export default SvgExternalLinkLine;

@@ -71,3 +71,17 @@ body {
   font-family: var(--font-lato);
   background-color: var(--color-background);
 }
+
+h1 {
+  font-size: var(--text-heading-xl);
+  line-height: var(--leading-heading);
+}
+
+h2 {
+  font-size: var(--text-heading-md);
+  line-height: var(--leading-heading);
+}
+
+button {
+  cursor: pointer;
+}
