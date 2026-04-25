@@ -16,7 +16,6 @@ export function RecentsTransactionsCard({
   const recentsTransactions =
     transactions.length > 5 ? transactions.slice(0, 5) : transactions;
 
-  const handleViewTranscation = (id: string) => {};
   const handleEditTranscation = (id: string) => {};
   const handleDeleteTranscation = (id: string) => {};
 
@@ -31,7 +30,7 @@ export function RecentsTransactionsCard({
             value={transaction.value}
             date={transaction.createdAt}
             kind={transaction.transactionType}
-            onViewItem={handleViewTranscation}
+            description={transaction.description}
             onEditItem={handleEditTranscation}
             onDeleteItem={handleDeleteTranscation}
           />

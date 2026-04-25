@@ -7,7 +7,7 @@ interface ItemListProps {
   value: number;
   date: Date;
   kind: TransactionType;
-  onViewItem: (value: string) => void;
+  description: string | undefined;
   onEditItem: (value: string) => void;
   onDeleteItem: (value: string) => void;
 }
@@ -17,8 +17,8 @@ export function ItemList({
   value,
   date,
   kind,
+  description,
   onDeleteItem,
-  onViewItem,
   onEditItem,
 }: ItemListProps) {
   const valueStyles: Record<TransactionType, { label: string; style: string }> =
@@ -28,23 +28,20 @@ export function ItemList({
     };
 
   return (
-    <li className="bg-gray-200 px-4 py-1 rounded-md flex items-center justify-between">
+    <li className="bg-gray-200 px-4 py-2 rounded-md flex items-stretch justify-between">
       <div>
         <p className="text-body-sm text-gray-600">
-          {maskUtils.getDateMask(date)}
+          {description}
         </p>
         <p className={valueStyles[kind].style}>
           {valueStyles[kind].label} {maskUtils.getCurrencyMask(value)}
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => onViewItem(id)}>
-          <Icon
-            name="EyeLine"
-            size={20}
-            className="text-gray-700 hover:text-gray-800"
-          />
-        </button>
+        <p className="text-body-md text-gray-600">
+          {maskUtils.getDateMask(date)}
+        </p>
+        <span className="w-px bg-gray-400 self-stretch"></span>
         <button type="button" onClick={() => onEditItem(id)}>
           <Icon
             name="PencilLine"

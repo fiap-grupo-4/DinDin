@@ -19,7 +19,7 @@ export function WelcomeCard({ balance }: WelcomeCardProps) {
         <ProfilePicture profileName="fulano de tal" />
         <h1>Seja bem-vindo, Fulano de Tal</h1>
       </div>
-      <p className="text-body-md leading-body text-gray-700 my-9">
+      <p className="text-body-lg leading-body text-gray-700 my-9">
         Com o DinDin, você acompanha seu dinheiro de forma simples e organizada.
         Gerencie suas transações, visualize seu saldo em tempo real e tenha mais
         controle sobre sua vida financeira — tudo em um só lugar.
@@ -32,7 +32,7 @@ export function WelcomeCard({ balance }: WelcomeCardProps) {
         <Button
           label="Nova Transação"
           size="sm"
-          icon="ArrowRightSLine"
+          icon="AddLine"
           onClick={handleNewTransaction}
         />
       </div>
