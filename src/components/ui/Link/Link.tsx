@@ -3,18 +3,20 @@ import { Icon, IconName } from "../Icon";
 
 interface LinkProps extends NextLinkProps {
   label: string;
-  icon?: IconName;
+  iconLeft?: IconName;
+  iconRight?: IconName;
   className?: string;
 }
 
-export function Link({ label, className = "", icon, ...props }: LinkProps) {
+export function Link({ label, className = "", iconLeft, iconRight, ...props }: LinkProps) {
   return (
     <NextLink
       className={`flex items-center gap-1 h-6 pb-1 no-underline text-body-lg leading-body text-brand-600 bg-transparent hover:text-brand-700 disabled:opacity-50 ${className}`}
       {...props}
     >
-      <span className={icon ? "pb-0.5" : ""}>{label}</span>
-      {icon && <Icon name={icon} size={20} />}
+      {iconLeft && <Icon name={iconLeft} size={20} />}
+      <span>{label}</span>
+      {iconRight && <Icon name={iconRight} size={20} />}
     </NextLink>
   );
 }

@@ -38,8 +38,8 @@ export function RecentsTransactionsCard({
       </ul>
       <Link
         label="Veja Mais"
-        icon="ArrowRightSLine"
-        href="#"
+        iconRight="ArrowRightSLine"
+        href="/transactions"
         className="mt-10 w-fit ml-auto"
       />
     </Container>

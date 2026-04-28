@@ -30,6 +30,7 @@ export { default as ArrowUpCircleLine } from "./ArrowUpCircleLine";
 export { default as ArrowUpDownLine } from "./ArrowUpDownLine";
 export { default as ArrowUpLine } from "./ArrowUpLine";
 export { default as ArrowUpSLine } from "./ArrowUpSLine";
+export { default as CalendarLine } from "./CalendarLine";
 export { default as CheckDoubleLine } from "./CheckDoubleLine";
 export { default as CheckLine } from "./CheckLine";
 export { default as CheckboxBlankCircleLine } from "./CheckboxBlankCircleLine";

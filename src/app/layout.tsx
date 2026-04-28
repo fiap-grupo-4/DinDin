@@ -27,7 +27,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        <main className="flex-1 items-center grid sm:grid-cols-1 md:grid-cols-10 gap-3 px-6 w-full max-w-[1440px] mx-auto">
+        <main className="flex-1 items-center grid sm:grid-cols-1 md:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto">
           {children}
         </main>
         <Footer />
