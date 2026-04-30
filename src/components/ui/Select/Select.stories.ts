@@ -1,22 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { fn } from "storybook/test";
 
-import { Input } from "./Input";
+import { Select } from "./Select";
 
 const meta = {
-  title: "Components/Input",
-  component: Input,
+  title: "Components/Select",
+  component: Select,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof Select>;
 
 export default meta;
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   args: {
-    label: "Input",
+    label: "Select",
   },
 };

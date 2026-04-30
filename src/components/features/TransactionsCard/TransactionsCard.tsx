@@ -7,10 +7,17 @@ import { ItemList } from "../../ui/ItemList";
 import { Link } from "../../ui/Link";
 import { Button } from "../../ui/Button";
 import { Input } from "../../ui/Input";
+import { Select } from "../../ui/Select";
+import { DateInput } from "../../ui/DateInput";
 
 interface TransactionsCardProps {
   transactions: Transaction[];
 }
+
+const transactionTypes = [
+  { label: "Entrada", value: "income" },
+  { label: "Saída", value: "expense" },
+];
 
 export function TransactionsCard({
   transactions,
@@ -46,16 +53,15 @@ export function TransactionsCard({
             iconRight="SearchLine"
             placeholder="Buscar transações..."
           />
-          <Input
-            label="Tipo"
-            iconRight="ArrowDownSLine"
-            placeholder="Todas as transações"
-          />
-          <Input
-            label="Data"
-            iconRight="CalendarLine"
-            placeholder="Selecione uma data"
-          />
+          <Select label="Tipo">
+            <option value="">Todas as transações</option>
+            {transactionTypes.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </Select>
+          <DateInput />
         </div>
         <div className="flex justify-end gap-4 mb-10">
           <Button
