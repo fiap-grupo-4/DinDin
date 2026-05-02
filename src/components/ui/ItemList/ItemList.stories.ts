@@ -24,7 +24,6 @@ const meta = {
     value: 1500.5,
     date: new Date("2026-04-12T10:00:00"),
     kind: "expense",
-    onViewItem: fn(),
     onEditItem: fn(),
     onDeleteItem: fn(),
   },
@@ -36,6 +35,7 @@ type Story = StoryObj<typeof ItemList>;
 export const Expense: Story = {
   args: {
     kind: "expense",
+    description: "Conta da luz",
     value: 89.9,
   },
 };

@@ -105,3 +105,12 @@ button {
 .rdp-chevron {
   fill: var(--color-brand-600) !important;
 }
+
+@media (max-width: 48rem /* 768px */) {
+  h1 {
+    font-size: var(--text-heading-sm);
+  }
+  h2 {
+    font-size: var(--text-heading-xs);
+  }
+}

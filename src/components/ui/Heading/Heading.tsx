@@ -12,7 +12,9 @@ export function Heading({ title, subtitle, className = "" }: HeadingProps) {
         <h2>{title}</h2>
       </div>
       {subtitle && (
-        <p className="text-gray-700 text-heading-xs pl-4">{subtitle}</p>
+        <p className="text-gray-700 text-body-md lg:text-heading-xs pl-4">
+          {subtitle}
+        </p>
       )}
     </div>
   );

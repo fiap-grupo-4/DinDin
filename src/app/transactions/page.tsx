@@ -17,7 +17,7 @@ export default async function Transactions() {
 
   return (
     <>
-      <div className="sm:mb-6 md:mb-0 sm:col-span-10 md:col-span-8 md:col-start-2">
+      <div className="w-full md:col-span-8 md:col-start-2">
         <TransactionsCard transactions={transactions} />
       </div>
     </>

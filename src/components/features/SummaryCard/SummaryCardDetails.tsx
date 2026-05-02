@@ -21,9 +21,11 @@ export function SummaryCardDetails({
   };
 
   return (
-    <div className="bg-gray-200 px-5 py-3 rounded-md">
-      <p className="text-heading-sm">{label}</p>
-      <p className={`text-heading-lg ${detailStyles[kind].style}`}>
+    <div className="bg-gray-200 px-5 py-3 rounded-md w-full md:w-auto">
+      <p className="text-heading-xs md:text-heading-sm">{label}</p>
+      <p
+        className={`text-heading-sm md:text-heading-lg ${detailStyles[kind].style}`}
+      >
         {`${detailStyles[kind].label} ${maskUtils.getCurrencyMask(value)}`}
       </p>
     </div>

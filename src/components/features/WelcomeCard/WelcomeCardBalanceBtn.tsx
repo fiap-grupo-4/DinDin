@@ -16,13 +16,13 @@ export function WelcomeCardBalanceBtn({ balance }: WelcomeCardBalanceBtnProps) {
   return (
     <button
       type="button"
-      className="flex items-center gap-2 text-brand-600 h-9"
+      className="flex items-center gap-2 text-brand-600 h-6 lg:h-9"
       onClick={handleShowBalance}
     >
       <Icon name={showBalance ? "EyeLine" : "EyeCloseLine"} />
       {showBalance ? (
         <span
-          className={`sm:text-heading-sm md:text-heading-lg md:leading-heading ${balance < 0 ? "text-danger-400" : ""}`}
+          className={`text-heading-xs lg:text-heading-lg lg:leading-heading ${balance < 0 ? "text-danger-400" : ""}`}
         >
           {maskUtils.getCurrencyMask(balance)}
         </span>
