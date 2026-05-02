@@ -19,14 +19,16 @@ export function WelcomeCard({ balance }: WelcomeCardProps) {
         <ProfilePicture profileName="fulano de tal" />
         <h1>Seja bem-vindo, Fulano de Tal</h1>
       </div>
-      <p className="text-body-lg leading-body text-gray-700 my-9">
+      <p className="text-body-md lg:text-body-lg leading-body text-gray-700 my-4 md:my-7 lg:my-14">
         Com o DinDin, você acompanha seu dinheiro de forma simples e organizada.
         Gerencie suas transações, visualize seu saldo em tempo real e tenha mais
         controle sobre sua vida financeira — tudo em um só lugar.
       </p>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-heading-md leading-heading mb-1">Saldo</p>
+          <p className="text-heading-xs lg:text-heading-md leading-heading mb-1">
+            Saldo
+          </p>
           <WelcomeCardBalanceBtn balance={balance} />
         </div>
         <Button
@@ -34,6 +36,7 @@ export function WelcomeCard({ balance }: WelcomeCardProps) {
           size="sm"
           icon="AddLine"
           onClick={handleNewTransaction}
+          className="w-fit"
         />
       </div>
     </Container>

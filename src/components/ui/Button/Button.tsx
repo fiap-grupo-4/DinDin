@@ -33,7 +33,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`py-1 px-3 border rounded-sm flex items-center gap-1 text-body-lg leading-body ${buttonSize} ${buttonKinds[kind]} ${className}`}
+      className={`py-1 px-3 border rounded-sm flex items-center justify-center gap-1 text-body-lg leading-body ${buttonSize} ${buttonKinds[kind]} ${className}`}
       {...props}
     >
       <span className={icon ? "pb-px" : ""}>{label}</span>

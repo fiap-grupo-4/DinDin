@@ -29,9 +29,9 @@ export function ItemList({
 
   return (
     <li className="bg-gray-200 min-h-16 px-4 py-2 rounded-md flex items-stretch justify-between">
-      <div className="flex flex-col justify-center">
-        <p className="text-body-sm text-gray-600">{description}</p>
-        <p className={valueStyles[kind].style}>
+      <div className="flex flex-col flex-1 justify-center min-w-0">
+        <p className="text-body-sm text-gray-600 truncate">{description}</p>
+        <p className={`truncate ${valueStyles[kind].style}`}>
           {valueStyles[kind].label} {maskUtils.getCurrencyMask(value)}
         </p>
       </div>

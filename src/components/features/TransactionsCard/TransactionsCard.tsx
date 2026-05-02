@@ -93,20 +93,21 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
         label="Voltar"
         iconLeft="ArrowLeftSLine"
         href="/"
-        className="w-fit"
+        className="w-fit mt-8 mb-4"
       />
-      <Container>
-        <div className="flex justify-between">
-          <Heading title="Transações Recentes" className="mb-11" />
+      <Container className="mb-6">
+        <div className="mb-4 flex flex-col gap-3 md:mb-11 md:flex-row md:items-center md:justify-between">
+          <Heading title="Transações Recentes" />
           <Button
             label="Nova Transação"
             size="sm"
             icon="AddLine"
             onClick={handleNewTransaction}
+            className="w-full md:w-fit"
           />
         </div>
         <form onSubmit={handleFilterFormSubmit}>
-          <div className="flex gap-4 mb-5">
+          <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-3">
             <Input
               label="Busca"
               iconRight="SearchLine"
@@ -134,14 +135,20 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
               }
             />
           </div>
-          <div className="flex justify-end gap-4 mb-10">
+          <div className="mb-10 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end sm:gap-4">
             <Button
               label="Limpar"
               size="sm"
               kind="secondary"
               onClick={handleFilterFormReset}
+              className="w-full sm:w-fit"
             />
-            <Button label="Filtrar" size="sm" type="submit" />
+            <Button
+              label="Filtrar"
+              size="sm"
+              type="submit"
+              className="w-full sm:w-fit"
+            />
           </div>
         </form>
         {filteredTransactions.length > 0 ? (
