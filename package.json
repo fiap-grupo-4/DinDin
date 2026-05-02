@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "server": "npx json-server ./config/db/db.json5",
+    "server": "npx json-server -p 4000 ./config/db/db.json5",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

@@ -6,12 +6,17 @@ import { useEffect, useRef } from "react";
 import "react-day-picker/dist/style.css";
 
 import { Input } from "../Input";
+import { maskUtils, validationUtils } from "@/src/lib/utils";
 
-export function DateInput() {
-  const [date, setDate] = useState<Date | undefined>();
-  const [open, setOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+export interface DateInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function DateInput({ value, onChange }: DateInputProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState<Date | undefined>();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -26,33 +31,49 @@ export function DateInput() {
     };
   }, []);
 
+  useEffect(() => {
+    const validateDate = (date: string) => {
+      if (!date) {
+        setDate(undefined);
+        return;
+      }
+
+      const parts = date.split("/");
+
+      if (parts.length !== 3) {
+        setDate(undefined);
+        return;
+      }
+
+      const [day, month, year] = parts.map(Number);
+
+      if (
+        year.toString().length === 4 &&
+        validationUtils.isValidDate(day, month, year)
+      ) {
+        setDate(new Date(year, month - 1, day));
+      } else {
+        setDate(undefined);
+      }
+    };
+
+    validateDate(value);
+  }, [value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const masked = maskUtils.applyDateMask(e.target.value);
+    onChange(masked);
+  };
+
   return (
     <div ref={ref} className="relative w-full">
       <div onClick={() => setOpen(!open)}>
         <Input
           label="Data"
-          value={inputValue}
+          value={value}
           placeholder="Selecione uma data"
           iconRight="CalendarLine"
-          onChange={(e) => {
-            const masked = applyDateMask(e.target.value);
-            setInputValue(masked);
-
-            const parts = masked.split("/");
-
-            if (parts.length === 3) {
-              const [day, month, year] = parts.map(Number);
-
-              if (
-                year.toString().length === 4 &&
-                isValidDate(day, month, year)
-              ) {
-                setDate(new Date(year, month - 1, day));
-              } else {
-                setDate(undefined);
-              }
-            }
-          }}
+          onChange={(e) => handleChange(e)}
         />
       </div>
       {open && (
@@ -62,34 +83,12 @@ export function DateInput() {
             selected={date}
             onSelect={(selected) => {
               setDate(selected);
-              setInputValue(
-                selected ? selected.toLocaleDateString("pt-BR") : ""
-              );
+              onChange(selected ? selected.toLocaleDateString("pt-BR") : "");
               setOpen(false);
             }}
           />
         </div>
       )}
     </div>
-  );
-}
-
-function applyDateMask(value: string) {
-  const numbers = value.replace(/\D/g, "").slice(0, 8);
-
-  if (numbers.length <= 2) return numbers;
-  if (numbers.length <= 4)
-    return `${numbers.slice(0, 2)}/${numbers.slice(2)}`;
-
-  return `${numbers.slice(0, 2)}/${numbers.slice(2, 4)}/${numbers.slice(4)}`;
-}
-
-function isValidDate(day: number, month: number, year: number) {
-  const date = new Date(year, month - 1, day);
-
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month - 1 &&
-    date.getDate() === day
   );
 }
