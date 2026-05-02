@@ -10,6 +10,7 @@ import { Link } from '../../ui/Link';
 
 import { EditTransactionModal } from '../TransactionModal/EditTransaction';
 import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
+import { transactionService } from '@/src/services/transactions';
 
 interface RecentsTransactionsCardProps {
   transactions: Transaction[];
@@ -45,11 +46,7 @@ export function RecentsTransactionsCard({
     updatedData: Partial<Transaction>
   ) => {
     try {
-      await fetch(`http://localhost:3001/transactions/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData),
-      });
+      await transactionService.updateTransactions(id, updatedData);
 
       setIsEditModalOpen(false);
       router.refresh();
@@ -60,10 +57,7 @@ export function RecentsTransactionsCard({
 
   const handleConfirmDelete = async (id: string) => {
     try {
-      await fetch(`http://localhost:3001/transactions/${id}`, {
-        method: 'DELETE',
-      });
-
+      await transactionService.deleteTransactions(id);
       setIsDeleteModalOpen(false);
       router.refresh();
     } catch (error) {
@@ -96,7 +90,6 @@ export function RecentsTransactionsCard({
       />
 
       <EditTransactionModal
-        key={selectedTransaction?.id || 'empty-edit'}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         transaction={selectedTransaction}
@@ -104,7 +97,6 @@ export function RecentsTransactionsCard({
       />
 
       <DeleteTransactionModal
-        key={selectedTransaction?.id || 'empty-delete'}
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         transaction={selectedTransaction}

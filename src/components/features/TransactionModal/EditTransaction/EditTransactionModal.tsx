@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Modal } from '../../../ui/Modal/Modal';
 import { Button } from '../../../ui/Button/Button';
 import { Input } from '../../../ui/Input/Input';
-import { Select } from '../../../ui/Select/Select';
+import { Select, SelectOption } from '../../../ui/Select/Select';
 import { DateInput } from '../../../ui/DateInput/DateInput';
 import { Transaction } from '@/src/types/transactions.types';
 
@@ -15,6 +15,12 @@ interface EditTransactionModalProps {
   onSave: (id: string, updatedData: Partial<Transaction>) => Promise<void>;
 }
 
+const transactionTypes: SelectOption[] = [
+  { label: 'Todas as transações', value: '' },
+  { label: 'Entrada', value: 'income' },
+  { label: 'Saída', value: 'expense' },
+];
+
 export function EditTransactionModal({
   isOpen,
   onClose,
@@ -24,6 +30,7 @@ export function EditTransactionModal({
   const [description, setDescription] = useState(
     transaction?.description || ''
   );
+
   const [value, setValue] = useState<string | number>(transaction?.value || '');
 
   if (!transaction) return null;
@@ -46,7 +53,7 @@ export function EditTransactionModal({
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Select label="Tipo" required />
+          <Select label="Tipo" options={transactionTypes} required />
 
           {/* Removido o iconLeft que causava erro no TypeScript */}
           <Input
@@ -57,7 +64,7 @@ export function EditTransactionModal({
             onChange={(e) => setValue(e.target.value)}
           />
 
-          <DateInput />
+          {/* <DateInput value='' onChange={} /> */}
         </div>
 
         <Input
