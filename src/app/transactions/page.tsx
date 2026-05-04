@@ -1,14 +1,14 @@
-import { TransactionsCard } from "../../components/features/TransactionsCard";
-import { transactionService } from "../../services/transactions";
+import { TransactionsCard } from '../../components/features/TransactionsCard';
+import { transactionService } from '../../services/transactions';
 
 export default async function Transactions() {
   const getTransactions = async () => {
     try {
       const transactions =
-        await transactionService.getTransactions("?_sort=-createdAt");
+        await transactionService.getTransactions('?_sort=-createdAt');
       return transactions;
     } catch (error) {
-      console.error("Error on getting Transactions", error);
+      console.error('Error on getting Transactions', error);
       return [];
     }
   };

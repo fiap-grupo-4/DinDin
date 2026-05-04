@@ -61,11 +61,6 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
     validateDate(value);
   }, [value]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const masked = maskUtils.applyDateMask(e.target.value);
-    onChange(masked);
-  };
-
   return (
     <div ref={ref} className="relative w-full">
       <div onClick={() => setOpen(!open)}>
@@ -74,7 +69,7 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
           value={value}
           placeholder="Selecione uma data"
           iconRight="CalendarLine"
-          onChange={(e) => handleChange(e)}
+          readOnly
           {...inputProps}
         />
       </div>

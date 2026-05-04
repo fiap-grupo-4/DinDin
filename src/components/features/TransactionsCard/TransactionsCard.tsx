@@ -9,13 +9,12 @@ import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Select } from '../../ui/Select';
 import { DateInput } from '../../ui/DateInput';
-import { useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { TransactionModal } from '../TransactionModal';
 import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
 import { transactionService } from '@/src/services/transactions';
-import { useRouter } from 'next/navigation';
 
 interface TransactionsCardProps {
   transactions: Transaction[];
@@ -28,27 +27,32 @@ const initialFilterForm = {
 };
 
 export function TransactionsCard({ transactions }: TransactionsCardProps) {
-  const router = useRouter();
-
   const [filterForm, setFilterForm] =
     useState<typeof initialFilterForm>(initialFilterForm);
+  const [listTransactions, setListTransactions] =
+    useState<Transaction[]>(transactions);
   const [filteredTransactions, setFilteredTransactions] =
     useState<Transaction[]>(transactions);
-
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
 
+  const resetFiltersAndSetList = (list: Transaction[]) => {
+    setFilterForm(initialFilterForm);
+    setListTransactions(list);
+    setFilteredTransactions(list);
+  };
+
   const handleEditTranscation = (id: string) => {
-    const transaction = transactions.find((t) => t.id === id) || null;
+    const transaction = listTransactions.find((t) => t.id === id) || null;
     setSelectedTransaction(transaction);
     setIsEditModalOpen(true);
   };
 
   const handleDeleteTranscation = (id: string) => {
-    const transaction = transactions.find((t) => t.id === id) || null;
+    const transaction = listTransactions.find((t) => t.id === id) || null;
     setSelectedTransaction(transaction);
     setIsDeleteModalOpen(true);
   };
@@ -74,12 +78,45 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
     return maskUtils.getDateMask(date) === filterValue;
   };
 
+  const applyTransactionFilters = (
+    list: Transaction[],
+    form: typeof initialFilterForm
+  ): Transaction[] =>
+    list.filter(
+      (transaction) =>
+        handleDescriptionFilter(
+          transaction.description || '',
+          form.description
+        ) &&
+        handleTranscationTypeFilter(
+          transaction.transactionType,
+          form.transactionType
+        ) &&
+        handleDateFilter(transaction.createdAt, form.date)
+    );
+
+  const refetchTransactions = async () => {
+    try {
+      const fresh =
+        await transactionService.getTransactions('?_sort=-createdAt');
+      resetFiltersAndSetList(fresh);
+    } catch (error) {
+      console.error('Error on getting Transactions', error);
+    }
+  };
+
+  useEffect(() => {
+    startTransition(() => {
+      resetFiltersAndSetList(transactions);
+    });
+  }, [transactions]);
+
   const handleNewTransaction = async (data: Partial<Transaction>) => {
     try {
       await transactionService.createTransactions(data);
 
       setIsCreateModalOpen(false);
-      router.refresh();
+      await refetchTransactions();
     } catch (error) {
       console.error('Erro ao criar nova transação:', error);
     }
@@ -90,7 +127,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
       await transactionService.updateTransactions(updatedData);
 
       setIsEditModalOpen(false);
-      router.refresh();
+      await refetchTransactions();
     } catch (error) {
       console.error('Erro ao editar transação:', error);
     }
@@ -100,7 +137,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
     try {
       await transactionService.deleteTransactions(id);
       setIsDeleteModalOpen(false);
-      router.refresh();
+      await refetchTransactions();
     } catch (error) {
       console.error('Erro ao excluir transação:', error);
     }
@@ -109,25 +146,14 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
   const handleFilterFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const filtered = transactions.filter((transaction) => {
-      return (
-        handleDescriptionFilter(
-          transaction.description || '',
-          filterForm.description
-        ) &&
-        handleTranscationTypeFilter(
-          transaction.transactionType,
-          filterForm.transactionType
-        ) &&
-        handleDateFilter(transaction.createdAt, filterForm.date)
-      );
-    });
-    setFilteredTransactions(filtered);
+    setFilteredTransactions(
+      applyTransactionFilters(listTransactions, filterForm)
+    );
   };
 
   const handleFilterFormReset = () => {
     setFilterForm(initialFilterForm);
-    setFilteredTransactions(transactions);
+    setFilteredTransactions(listTransactions);
   };
 
   return (
