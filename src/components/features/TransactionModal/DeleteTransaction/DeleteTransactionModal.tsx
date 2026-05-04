@@ -25,7 +25,7 @@ export function DeleteTransactionModal({
       onClose={onClose}
       title="Confirmar Exclusão"
       dotColor="danger"
-      maxWidth="sm"
+      maxWidth="md"
     >
       <div className="flex flex-col gap-8 text-center">
         <p className="text-body-lg text-gray-800">

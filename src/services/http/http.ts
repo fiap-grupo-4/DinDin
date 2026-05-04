@@ -1,7 +1,9 @@
+const BASE_URL = process.env.API_URL || "http://localhost:3000";
+
 const fetchApi = async <T>(url: string, options: RequestInit): Promise<T> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+  const res = await fetch(`${BASE_URL}${url}`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     },
     ...options,
@@ -16,21 +18,21 @@ const fetchApi = async <T>(url: string, options: RequestInit): Promise<T> => {
 
 export const httpClient = {
   get: async <T>(url: string, options?: RequestInit) =>
-    fetchApi<T>(url, { method: 'GET', ...options }),
+    fetchApi<T>(url, { method: "GET", ...options }),
   post: async <T>(url: string, body: unknown, options?: RequestInit) =>
     fetchApi<T>(url, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(body),
       ...options,
     }),
   patch: async <T>(url: string, body: unknown, options?: RequestInit) =>
     fetchApi<T>(url, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify(body),
       ...options,
     }),
   put: async <T>(url: string, body: unknown, options?: RequestInit) =>
-    fetchApi<T>(url, { method: 'PUT', body: JSON.stringify(body), ...options }),
+    fetchApi<T>(url, { method: "PUT", body: JSON.stringify(body), ...options }),
   delete: async <T>(url: string, options?: RequestInit) =>
-    fetchApi<T>(url, { method: 'DELETE', ...options }),
+    fetchApi<T>(url, { method: "DELETE", ...options }),
 };

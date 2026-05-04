@@ -7,8 +7,8 @@ import { Heading } from '../Heading/Heading';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string; // Agora recebe apenas a string limpa
-  dotColor?: 'brand' | 'danger'; // Propriedade nova para a bolinha
+  title: string;
+  dotColor?: 'brand' | 'danger';
   children: ReactNode;
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
 }
@@ -23,12 +23,11 @@ export function Modal({
 }: ModalProps) {
   if (!isOpen) return null;
 
-  // Dentro do seu Modal.tsx na pasta ui
   const maxWidthClasses = {
     sm: 'max-w-sm',
     md: 'max-w-md',
     lg: 'max-w-lg',
-    xl: 'max-w-3xl', // <-- Adicione isso para deixar o modal bem largo
+    xl: 'max-w-3xl',
   };
 
   return (
@@ -37,7 +36,7 @@ export function Modal({
         className={`w-full rounded-lg bg-white p-6 shadow-xl ${maxWidthClasses[maxWidth]}`}
       >
         <div className="mb-6 flex items-center justify-between">
-          <Heading title={title} />
+          <Heading title={title} dotColor={dotColor} />
 
           <button
             onClick={onClose}

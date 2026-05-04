@@ -42,6 +42,7 @@ export { default as CheckboxMultipleBlankLine } from "./CheckboxMultipleBlankLin
 export { default as CheckboxMultipleLine } from "./CheckboxMultipleLine";
 export { default as CloseCircleLine } from "./CloseCircleLine";
 export { default as CloseLine } from "./CloseLine";
+export { default as DraftLine } from "./DraftLine";
 export { default as DashboardLine } from "./DashboardLine";
 export { default as DeleteBack2Line } from "./DeleteBack2Line";
 export { default as DeleteBackLine } from "./DeleteBackLine";
@@ -107,6 +108,7 @@ export { default as MenuAddLine } from "./MenuAddLine";
 export { default as MenuFoldLine } from "./MenuFoldLine";
 export { default as MenuLine } from "./MenuLine";
 export { default as MenuUnfoldLine } from "./MenuUnfoldLine";
+export { default as MoneyDollarCircleLine } from "./MoneyDollarCircleLine";
 export { default as More2Line } from "./More2Line";
 export { default as MoreLine } from "./MoreLine";
 export { default as NotificationBadgeLine } from "./NotificationBadgeLine";

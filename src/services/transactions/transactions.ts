@@ -19,8 +19,15 @@ const updateTransactions = async (
   return httpClient.patch<Transaction>(`/transactions/${id}`, body);
 };
 
+const createTransaction = async (
+  body: Omit<Transaction, 'id'>
+): Promise<Transaction> => {
+  return httpClient.post<Transaction>('/transactions', body);
+};
+
 export const transactionService = {
   getTransactions,
   deleteTransactions,
   updateTransactions,
+  createTransaction,
 };
