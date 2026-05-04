@@ -1,3 +1,9 @@
+# DinDin
+
+DinDin is a financial management web application that helps users track transactions, visualize spending, and stay organized.
+
+This project was developed as part of a postgraduate course at FIAP.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -55,3 +61,7 @@ src/
 ├── types/                      # global types
 └── hooks/                      # custom hooks client-side
 ```
+
+## Design (Figma)
+
+You can access the design system, prototypes, and UI decisions here: [View Figma Project](https://www.figma.com/design/l6NQvPvjsX1ytZKy3GD91s/DinDin?m=auto&t=IL8YwaB2ehsiPGnx-1)

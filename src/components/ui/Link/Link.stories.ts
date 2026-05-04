@@ -19,3 +19,19 @@ export const Link: Story = {
     href: "#",
   },
 };
+
+export const LeftIcon: Story = {
+  args: {
+    label: "Link to nowhere",
+    href: "#",
+    iconLeft: "StarLine"
+  },
+};
+
+export const RightIcon: Story = {
+  args: {
+    label: "Link to nowhere",
+    href: "#",
+    iconRight: "StarLine"
+  },
+};

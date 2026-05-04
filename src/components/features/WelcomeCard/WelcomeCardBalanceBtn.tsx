@@ -19,7 +19,7 @@ export function WelcomeCardBalanceBtn({ balance }: WelcomeCardBalanceBtnProps) {
       className="flex items-center gap-2 text-brand-600 h-6 lg:h-9"
       onClick={handleShowBalance}
     >
-      <Icon name={showBalance ? "EyeLine" : "EyeCloseLine"} />
+      <Icon name={showBalance ? "EyeLine" : "EyeCloseLine"} className={`${showBalance && balance < 0 ? "text-danger-400" : ""}`} />
       {showBalance ? (
         <span
           className={`text-heading-xs lg:text-heading-lg lg:leading-heading ${balance < 0 ? "text-danger-400" : ""}`}
