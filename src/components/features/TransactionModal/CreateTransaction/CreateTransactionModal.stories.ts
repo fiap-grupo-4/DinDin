@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-
+import { fn } from "storybook/test";
 import { CreateTransactionModal } from "./CreateTransactionModal";
 
 const meta = {
@@ -11,6 +11,8 @@ const meta = {
     tags: ["autodocs"],
     args: {
         isOpen: true,
+        onClose: fn(),
+        onCreate: fn(),
     },
 } satisfies Meta<typeof CreateTransactionModal>;
 

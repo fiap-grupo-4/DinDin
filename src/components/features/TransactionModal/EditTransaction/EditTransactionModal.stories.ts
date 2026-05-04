@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-
+import { fn } from "storybook/test";
 import { EditTransactionModal } from "./EditTransactionModal";
 import { Transaction } from "@/src/types/transactions.types";
 
@@ -21,6 +21,8 @@ const meta = {
     args: {
         isOpen: true,
         transaction: mockTransaction,
+        onClose: fn(),
+        onSave: fn(),
     },
 } satisfies Meta<typeof EditTransactionModal>;
 
