@@ -1,6 +1,6 @@
-import { Icon, IconName } from "../Icon";
+import { Icon, IconName } from '../Icon';
 
-type SelectState = "default" | "error";
+type SelectState = 'default' | 'error';
 
 export interface SelectOption {
   label: string;
@@ -11,6 +11,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   required?: boolean;
   helperText?: string;
+  errorMessage?: string;
   iconLeft?: IconName;
   state?: SelectState;
   options: SelectOption[];
@@ -20,25 +21,26 @@ export function Select({
   label,
   required,
   helperText,
+  errorMessage,
   iconLeft,
-  state = "default",
+  state = 'default',
   disabled,
-  className = "",
+  className = '',
   options,
   ...props
 }: SelectProps) {
   const baseStyles =
-    "w-full h-11 px-3 rounded-md border-2 text-body-lg text-gray-700 outline-none transition";
+    'w-full h-11 px-3 rounded-md border-2 text-body-lg text-gray-700 outline-none transition';
 
   const stateStyles: Record<SelectState, string> = {
     default:
-      "border-gray-400 bg-white hover:border-gray-500 focus:border-brand-500",
+      'border-gray-400 bg-white hover:border-gray-500 focus:border-brand-500',
     error:
-      "border-danger-400 bg-white hover:border-danger-500 focus:border-danger-500",
+      'border-danger-400 bg-white hover:border-danger-500 focus:border-danger-500',
   };
 
   const disabledStyles =
-    "bg-gray-200 border-gray-400 cursor-not-allowed opacity-60";
+    'bg-gray-200 border-gray-400 cursor-not-allowed opacity-60';
 
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -59,8 +61,8 @@ export function Select({
                     appearance-none
                     ${baseStyles}
                     ${stateStyles[state]}
-                    ${disabled ? disabledStyles : ""}
-                    ${iconLeft ? "pl-10" : ""}
+                    ${disabled ? disabledStyles : ''}
+                    ${iconLeft ? 'pl-10' : ''}
                     pr-10
                     ${className}
             `}
@@ -77,13 +79,13 @@ export function Select({
           <Icon name="ArrowDownSLine" size={20} />
         </span>
       </div>
-      {helperText && (
+      {(helperText || (errorMessage && state === 'error')) && (
         <span
           className={`text-body-xs ${
-            state === "error" ? "text-danger-500" : "text-gray-500"
+            state === 'error' ? 'text-danger-500' : 'text-gray-500'
           }`}
         >
-          {helperText}
+          {state === 'error' ? errorMessage : helperText}
         </span>
       )}
     </div>

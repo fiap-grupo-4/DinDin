@@ -6,6 +6,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   label?: string;
   required?: boolean;
   helperText?: string;
+  errorMessage?: string;
   iconLeft?: IconName;
   iconRight?: IconName;
   state?: InputState;
@@ -15,6 +16,7 @@ export function Input({
   label,
   required,
   helperText,
+  errorMessage,
   placeholder,
   iconLeft,
   iconRight,
@@ -69,13 +71,13 @@ export function Input({
           </span>
         )}
       </div>
-      {helperText && (
+      {(helperText || (errorMessage && state === 'error')) && (
         <span
           className={`text-body-xs ${
             state === 'error' ? 'text-danger-500' : 'text-gray-500'
           }`}
         >
-          {helperText}
+          {state === 'error' ? errorMessage : helperText}
         </span>
       )}
     </div>

@@ -125,6 +125,7 @@ export function TransactionModal({
             }
             required
             iconLeft="ListUnordered"
+            errorMessage="Tipo inválido"
             onChange={(e) =>
               onChangeField<string>(
                 'transactionType',
@@ -144,6 +145,7 @@ export function TransactionModal({
             }
             required
             iconLeft="MoneyDollarCircleLine"
+            errorMessage="Valor inválido"
             onChange={(e) =>
               onChangeField<string>(
                 'value',
@@ -160,6 +162,7 @@ export function TransactionModal({
                 : 'default'
             }
             required
+            errorMessage="Data inválida"
             onChange={(value) =>
               onChangeField('date', value, transactionForm.date.validation)
             }
