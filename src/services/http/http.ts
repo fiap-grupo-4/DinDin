@@ -1,5 +1,7 @@
+const BASE_URL = process.env.API_URL || "http://localhost:3000";
+
 const fetchApi = async <T>(url: string, options: RequestInit): Promise<T> => {
-  const res = await fetch(`${process.env.API_URL}${url}`, {
+  const res = await fetch(`${BASE_URL}${url}`, {
     headers: {
       "Content-Type": "application/json",
       ...options.headers,

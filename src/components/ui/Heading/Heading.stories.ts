@@ -13,6 +13,7 @@ const meta = {
     title: "Resumo",
     subtitle: "Últimos 30 dias",
     className: "",
+    dotColor: "brand",
   },
 } satisfies Meta<typeof Heading>;
 
@@ -25,5 +26,13 @@ export const TitleOnly: Story = {
   args: {
     title: "Transações recentes",
     subtitle: undefined,
+  },
+};
+
+export const DangerDot: Story = {
+  args: {
+    title: "Confirmar Exclusão",
+    subtitle: "Atenção: esta ação não pode ser desfeita.",
+    dotColor: "danger",
   },
 };
