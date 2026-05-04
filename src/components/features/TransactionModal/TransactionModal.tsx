@@ -34,7 +34,7 @@ const getInitialFormState = (values?: Transaction) => ({
     isTouched: false,
   },
   value: {
-    value: values?.value ?? undefined,
+    value: values?.value ?? '',
     isValid: !!values?.value,
     isTouched: false,
     validation: (value: string) => value !== '',
@@ -85,6 +85,7 @@ export function TransactionModal({
       transactionType: transactionForm.transactionType.value as TransactionType,
       createdAt,
     });
+    setTransactionForm(getInitialFormState());
   };
 
   const onChangeField = <T,>(
