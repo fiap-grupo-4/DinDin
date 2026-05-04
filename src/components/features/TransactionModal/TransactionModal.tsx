@@ -108,7 +108,6 @@ export function TransactionModal({
       isOpen={isOpen}
       onClose={handleClose}
       title={defaultValues ? 'Editar Transação' : 'Nova Transação'}
-      dotColor="brand"
       maxWidth="xl"
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
