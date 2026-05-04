@@ -10,12 +10,14 @@ const fewTransactions: Transaction[] = [
     value: 89.9,
     transactionType: "expense",
     createdAt: new Date("2026-04-10T14:20:00"),
+    description: "Mercado"
   },
   {
     id: "t2",
     value: 3200,
     transactionType: "income",
     createdAt: new Date("2026-04-08T09:00:00"),
+    description: "Salário"
   },
   {
     id: "t3",
@@ -38,6 +40,7 @@ const manyTransactions: Transaction[] = [
     value: 15.5,
     transactionType: "expense",
     createdAt: new Date("2026-04-03T08:15:00"),
+    description: "Salgado"
   },
   {
     id: "t6",

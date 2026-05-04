@@ -28,7 +28,7 @@ export function ItemList({
     };
 
   return (
-    <li className="bg-gray-200 min-h-16 px-4 py-2 rounded-md flex items-stretch justify-between">
+    <li className="bg-gray-200 min-h-16 px-4 py-2 rounded-md flex items-stretch justify-between gap-3">
       <div className="flex flex-col flex-1 justify-center min-w-0">
         <p className="text-body-sm text-gray-600 truncate">{description}</p>
         <p className={`truncate ${valueStyles[kind].style}`}>
