@@ -1,32 +1,26 @@
-"use client";
+'use client';
 
-import { Transaction, TransactionType } from "@/src/types/transactions.types";
-import { Container } from "../../ui/Container";
-import { Heading } from "../../ui/Heading";
-import { ItemList } from "../../ui/ItemList";
-import { Link } from "../../ui/Link";
-import { Button } from "../../ui/Button";
-import { Input } from "../../ui/Input";
-import { Select } from "../../ui/Select";
-import { DateInput } from "../../ui/DateInput";
-import { SelectOption } from "../../ui/Select/Select";
-import { useState } from "react";
-import { maskUtils } from "@/src/lib/utils";
+import { Transaction, TransactionType } from '@/src/types/transactions.types';
+import { Container } from '../../ui/Container';
+import { Heading } from '../../ui/Heading';
+import { ItemList } from '../../ui/ItemList';
+import { Link } from '../../ui/Link';
+import { Button } from '../../ui/Button';
+import { Input } from '../../ui/Input';
+import { Select } from '../../ui/Select';
+import { DateInput } from '../../ui/DateInput';
+import { useState } from 'react';
+import { maskUtils } from '@/src/lib/utils';
+import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 
 interface TransactionsCardProps {
   transactions: Transaction[];
 }
 
-const transactionTypes: SelectOption[] = [
-  { label: "Todas as transações", value: "" },
-  { label: "Entrada", value: "income" },
-  { label: "Saída", value: "expense" },
-];
-
 const initialFilterForm = {
-  transactionType: transactionTypes[0].value,
-  date: "",
-  description: "",
+  transactionType: TRANSACTION_TYPES[0].value,
+  date: '',
+  description: '',
 };
 
 export function TransactionsCard({ transactions }: TransactionsCardProps) {
@@ -36,7 +30,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
     useState<Transaction[]>(transactions);
 
   const handleNewTransaction = () => {
-    console.log("open new transaction modal");
+    console.log('open new transaction modal');
   };
 
   const handleEditTranscation = (id: string) => {};
@@ -44,22 +38,22 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
 
   const handleDescriptionFilter = (
     description: string,
-    filterValue: string,
+    filterValue: string
   ): boolean => {
-    if (filterValue === "") return true;
+    if (filterValue === '') return true;
     return description.toLowerCase().includes(filterValue.toLowerCase());
   };
 
   const handleTranscationTypeFilter = (
     transactionType: TransactionType,
-    filterValue: string,
+    filterValue: string
   ): boolean => {
-    if (filterValue === "") return true;
+    if (filterValue === '') return true;
     return transactionType === (filterValue as TransactionType);
   };
 
   const handleDateFilter = (date: Date, filterValue: string) => {
-    if (filterValue === "") return true;
+    if (filterValue === '') return true;
     return maskUtils.getDateMask(date) === filterValue;
   };
 
@@ -69,12 +63,12 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
     const filtered = transactions.filter((transaction) => {
       return (
         handleDescriptionFilter(
-          transaction.description || "",
-          filterForm.description,
+          transaction.description || '',
+          filterForm.description
         ) &&
         handleTranscationTypeFilter(
           transaction.transactionType,
-          filterForm.transactionType,
+          filterForm.transactionType
         ) &&
         handleDateFilter(transaction.createdAt, filterForm.date)
       );
@@ -119,7 +113,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
             />
             <Select
               label="Tipo"
-              options={transactionTypes}
+              options={TRANSACTION_TYPES}
               value={filterForm.transactionType}
               onChange={(e) =>
                 setFilterForm({

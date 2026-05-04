@@ -8,9 +8,9 @@ import { Heading } from '../../ui/Heading';
 import { ItemList } from '../../ui/ItemList';
 import { Link } from '../../ui/Link';
 
-import { EditTransactionModal } from '../TransactionModal/EditTransaction';
 import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
 import { transactionService } from '@/src/services/transactions';
+import { TransactionModal } from '../TransactionModal';
 
 interface RecentsTransactionsCardProps {
   transactions: Transaction[];
@@ -41,12 +41,9 @@ export function RecentsTransactionsCard({
     setIsDeleteModalOpen(true);
   };
 
-  const handleSaveTransaction = async (
-    id: string,
-    updatedData: Partial<Transaction>
-  ) => {
+  const handleSaveTransaction = async (updatedData: Partial<Transaction>) => {
     try {
-      await transactionService.updateTransactions(id, updatedData);
+      await transactionService.updateTransactions(updatedData);
 
       setIsEditModalOpen(false);
       router.refresh();
@@ -89,10 +86,11 @@ export function RecentsTransactionsCard({
         className="mt-10 w-fit ml-auto"
       />
 
-      <EditTransactionModal
+      <TransactionModal
+        key={`edit-${selectedTransaction?.id}`}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        transaction={selectedTransaction}
+        defaultValues={selectedTransaction as Transaction}
         onSave={handleSaveTransaction}
       />
 

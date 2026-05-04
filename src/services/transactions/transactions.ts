@@ -13,10 +13,9 @@ const deleteTransactions = async (id: string): Promise<void> => {
 };
 
 const updateTransactions = async (
-  id: string,
   body: Partial<Transaction>
 ): Promise<Transaction> => {
-  return httpClient.patch<Transaction>(`/transactions/${id}`, body);
+  return httpClient.patch<Transaction>(`/transactions/${body.id}`, body);
 };
 
 export const transactionService = {

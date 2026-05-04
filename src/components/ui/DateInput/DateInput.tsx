@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { DayPicker } from "react-day-picker";
-import { useEffect, useRef } from "react";
-import "react-day-picker/dist/style.css";
+import { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import { useEffect, useRef } from 'react';
+import 'react-day-picker/dist/style.css';
 
-import { Input } from "../Input";
-import { maskUtils, validationUtils } from "@/src/lib/utils";
+import { Input } from '../Input';
+import { maskUtils, validationUtils } from '@/src/lib/utils';
+import { InputProps } from '../Input/Input';
 
-export interface DateInputProps {
+export interface DateInputProps extends Omit<InputProps, 'value' | 'onChange'> {
   value: string;
   onChange: (value: string) => void;
 }
 
-export function DateInput({ value, onChange }: DateInputProps) {
+export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>();
@@ -25,9 +26,9 @@ export function DateInput({ value, onChange }: DateInputProps) {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -38,7 +39,7 @@ export function DateInput({ value, onChange }: DateInputProps) {
         return;
       }
 
-      const parts = date.split("/");
+      const parts = date.split('/');
 
       if (parts.length !== 3) {
         setDate(undefined);
@@ -74,6 +75,7 @@ export function DateInput({ value, onChange }: DateInputProps) {
           placeholder="Selecione uma data"
           iconRight="CalendarLine"
           onChange={(e) => handleChange(e)}
+          {...inputProps}
         />
       </div>
       {open && (
@@ -83,7 +85,7 @@ export function DateInput({ value, onChange }: DateInputProps) {
             selected={date}
             onSelect={(selected) => {
               setDate(selected);
-              onChange(selected ? selected.toLocaleDateString("pt-BR") : "");
+              onChange(selected ? selected.toLocaleDateString('pt-BR') : '');
               setOpen(false);
             }}
           />
