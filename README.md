@@ -8,7 +8,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, you must create .env file following the example file ".env.example".
+
+To simulate api requests this project uses json-server. You must run it for local development by using this command:
+
+```bash
+npm run server
+# or
+yarn run server
+# or
+pnpm run server
+# or
+bun run server
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -32,14 +46,6 @@ This project uses storybook for component's documentation, to run it local use t
 
 ```bash
 npm run storybook
-```
-
-## Config json-server
-
-To simulate api requests this project uses json-server. You must run it for local development by using this command:
-
-```bash
-npm run server
 ```
 
 ## Architectural Patterns

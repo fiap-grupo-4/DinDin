@@ -12,6 +12,10 @@ import { DateInput } from '../../ui/DateInput';
 import { useState } from 'react';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
+import { TransactionModal } from '../TransactionModal';
+import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
+import { transactionService } from '@/src/services/transactions';
+import { useRouter } from 'next/navigation';
 
 interface TransactionsCardProps {
   transactions: Transaction[];
@@ -24,17 +28,30 @@ const initialFilterForm = {
 };
 
 export function TransactionsCard({ transactions }: TransactionsCardProps) {
+  const router = useRouter();
+
   const [filterForm, setFilterForm] =
     useState<typeof initialFilterForm>(initialFilterForm);
   const [filteredTransactions, setFilteredTransactions] =
     useState<Transaction[]>(transactions);
 
-  const handleNewTransaction = () => {
-    console.log('open new transaction modal');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
+
+  const handleEditTranscation = (id: string) => {
+    const transaction = transactions.find((t) => t.id === id) || null;
+    setSelectedTransaction(transaction);
+    setIsEditModalOpen(true);
   };
 
-  const handleEditTranscation = (id: string) => {};
-  const handleDeleteTranscation = (id: string) => {};
+  const handleDeleteTranscation = (id: string) => {
+    const transaction = transactions.find((t) => t.id === id) || null;
+    setSelectedTransaction(transaction);
+    setIsDeleteModalOpen(true);
+  };
 
   const handleDescriptionFilter = (
     description: string,
@@ -55,6 +72,38 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
   const handleDateFilter = (date: Date, filterValue: string) => {
     if (filterValue === '') return true;
     return maskUtils.getDateMask(date) === filterValue;
+  };
+
+  const handleNewTransaction = async (data: Partial<Transaction>) => {
+    try {
+      await transactionService.createTransactions(data);
+
+      setIsCreateModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Erro ao criar nova transação:', error);
+    }
+  };
+
+  const handleSaveTransaction = async (updatedData: Partial<Transaction>) => {
+    try {
+      await transactionService.updateTransactions(updatedData);
+
+      setIsEditModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Erro ao editar transação:', error);
+    }
+  };
+
+  const handleConfirmDelete = async (id: string) => {
+    try {
+      await transactionService.deleteTransactions(id);
+      setIsDeleteModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Erro ao excluir transação:', error);
+    }
   };
 
   const handleFilterFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -96,7 +145,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
             label="Nova Transação"
             size="sm"
             icon="AddLine"
-            onClick={handleNewTransaction}
+            onClick={() => setIsCreateModalOpen(true)}
             className="w-full md:w-fit"
           />
         </div>
@@ -168,6 +217,26 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
           </div>
         )}
       </Container>
+      <TransactionModal
+        key="create-new"
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSave={handleNewTransaction}
+      />
+      <TransactionModal
+        key={`edit-${selectedTransaction?.id}`}
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        defaultValues={selectedTransaction as Transaction}
+        onSave={handleSaveTransaction}
+      />
+
+      <DeleteTransactionModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        transaction={selectedTransaction}
+        onConfirm={handleConfirmDelete}
+      />
     </>
   );
 }

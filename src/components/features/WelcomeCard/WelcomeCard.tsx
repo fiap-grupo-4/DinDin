@@ -1,16 +1,31 @@
-"use client";
-import { Container } from "../../ui/Container";
-import { Button } from "../../ui/Button";
-import { ProfilePicture } from "../../ui/ProfilePicture/ProfilePicture";
-import { WelcomeCardBalanceBtn } from "./WelcomeCardBalanceBtn";
+'use client';
+import { Container } from '../../ui/Container';
+import { Button } from '../../ui/Button';
+import { ProfilePicture } from '../../ui/ProfilePicture/ProfilePicture';
+import { WelcomeCardBalanceBtn } from './WelcomeCardBalanceBtn';
+import { TransactionModal } from '../TransactionModal';
+import { useState } from 'react';
+import { Transaction } from '@/src/types/transactions.types';
+import { transactionService } from '@/src/services/transactions';
+import { useRouter } from 'next/navigation';
 
 interface WelcomeCardProps {
   balance: number;
 }
 
 export function WelcomeCard({ balance }: WelcomeCardProps) {
-  const handleNewTransaction = () => {
-    console.log("open new transaction modal");
+  const router = useRouter();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const handleNewTransaction = async (data: Partial<Transaction>) => {
+    try {
+      await transactionService.createTransactions(data);
+
+      setIsCreateModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Erro ao criar nova transação:', error);
+    }
   };
 
   return (
@@ -35,10 +50,16 @@ export function WelcomeCard({ balance }: WelcomeCardProps) {
           label="Nova Transação"
           size="sm"
           icon="AddLine"
-          onClick={handleNewTransaction}
+          onClick={() => setIsCreateModalOpen(true)}
           className="w-fit"
         />
       </div>
+      <TransactionModal
+        key="create-new"
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSave={handleNewTransaction}
+      />
     </Container>
   );
 }

@@ -12,6 +12,12 @@ const deleteTransactions = async (id: string): Promise<void> => {
   await httpClient.delete<void>(`/transactions/${id}`);
 };
 
+const createTransactions = async (
+  body: Partial<Transaction>
+): Promise<Transaction> => {
+  return httpClient.post<Transaction>('/transactions', body);
+};
+
 const updateTransactions = async (
   body: Partial<Transaction>
 ): Promise<Transaction> => {
@@ -22,4 +28,5 @@ export const transactionService = {
   getTransactions,
   deleteTransactions,
   updateTransactions,
+  createTransactions,
 };

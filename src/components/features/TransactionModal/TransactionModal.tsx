@@ -51,6 +51,11 @@ export function TransactionModal({
     getInitialFormState(defaultValues)
   );
 
+  const handleClose = () => {
+    setTransactionForm(getInitialFormState(defaultValues));
+    onClose();
+  };
+
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -100,7 +105,7 @@ export function TransactionModal({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       title={defaultValues ? 'Editar Transação' : 'Nova Transação'}
       dotColor="brand"
       maxWidth="xl"
@@ -118,6 +123,7 @@ export function TransactionModal({
                 : 'default'
             }
             required
+            iconLeft="ListUnordered"
             onChange={(e) =>
               onChangeField<string>(
                 'transactionType',
@@ -136,6 +142,7 @@ export function TransactionModal({
                 : 'default'
             }
             required
+            iconLeft="MoneyDollarCircleLine"
             onChange={(e) =>
               onChangeField<string>(
                 'value',
@@ -161,11 +168,12 @@ export function TransactionModal({
         <Input
           label="Descrição"
           placeholder="Ex: Mercado, aluguel, salário..."
+          iconLeft="DraftLine"
           value={transactionForm.description.value}
           onChange={(e) => onChangeField<string>('description', e.target.value)}
         />
         <div className="mt-2 flex w-full justify-end gap-4">
-          <Button kind="secondary" label="Cancelar" onClick={onClose} />
+          <Button kind="secondary" label="Cancelar" onClick={handleClose} />
           <Button kind="primary" label="Salvar" type="submit" />
         </div>
       </form>
