@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
-import { Header } from '@/src/components/features/Header';
-import { Footer } from '@/src/components/features/Footer';
+import { Header } from '@/src/components/ui/Header';
+import { Footer } from '@/src/components/ui/Footer';
 import '../styles/globals.css';
 
 const lato = Lato({

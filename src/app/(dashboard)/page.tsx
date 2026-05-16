@@ -1,11 +1,13 @@
 import {
-  RecentsTransactionsCard,
-  WelcomeCard,
+  RecentsTransactionsList,
+  BalanceButton,
   SummaryCardDetails,
 } from './components';
 import { Heading } from '@/src/components/ui/Heading';
 import { Container } from '@/src/components/ui/Container';
 import { transactionService } from '@/src/services/transactions';
+import { Link } from '@/src/components/ui/Link';
+import { ProfilePicture } from '@/src/components/ui/ProfilePicture';
 
 export default async function DashboardPage() {
   const getTransactions = async () => {
@@ -45,7 +47,19 @@ export default async function DashboardPage() {
   return (
     <>
       <div className="mt-6 lg:mt-0 lg:col-span-6 flex flex-col gap-3">
-        <WelcomeCard balance={balance} />
+        <Container>
+          <div className="flex items-center gap-3">
+            <ProfilePicture profileName="fulano de tal" />
+            <h1>Seja bem-vindo, Fulano de Tal</h1>
+          </div>
+          <p className="text-body-md lg:text-body-lg leading-body text-gray-700 my-4 md:my-7 lg:my-14">
+            Com o DinDin, você acompanha seu dinheiro de forma simples e
+            organizada. Gerencie suas transações, visualize seu saldo em tempo
+            real e tenha mais controle sobre sua vida financeira — tudo em um só
+            lugar.
+          </p>
+          <BalanceButton balance={balance} />
+        </Container>
         <Container>
           <Heading
             title="Resumo Financeiro"
@@ -66,9 +80,16 @@ export default async function DashboardPage() {
           </div>
         </Container>
       </div>
-      <div className="mb-6 lg:mb-0 w-full lg:col-span-4">
-        <RecentsTransactionsCard transactions={transactions} />
-      </div>
+      <Container className="mb-6 lg:mb-0 w-full lg:col-span-4">
+        <Heading title="Transações Recentes" className="mb-11" />
+        <RecentsTransactionsList transactions={transactions} />
+        <Link
+          label="Veja Mais"
+          href="/transactions"
+          iconRight="ArrowRightSLine"
+          className="mt-10 w-fit ml-auto"
+        />
+      </Container>
     </>
   );
 }

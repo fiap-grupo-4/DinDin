@@ -1,3 +1,3 @@
-export { WelcomeCard } from './WelcomeCard';
-export { RecentsTransactionsCard } from './RecentsTransactionsCard';
+export { BalanceButton } from './BalanceButton';
+export { RecentsTransactionsList } from './RecentsTransactionsList';
 export { SummaryCardDetails } from './SumaryCardDetails';

@@ -1,1 +1,0 @@
-export { RecentsTransactionsCard } from "./RecentsTransactionsCard";

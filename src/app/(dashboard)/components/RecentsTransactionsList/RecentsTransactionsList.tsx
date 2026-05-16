@@ -3,21 +3,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Transaction } from '@/src/types/transactions.types';
-import { Container } from '@/src/components/ui/Container';
-import { Heading } from '@/src/components/ui/Heading';
-import { ItemList } from '@/src/components/features/ItemList';
-import { Link } from '@/src/components/ui/Link';
 import { TransactionModal } from '@/src/components/features/TransactionModal';
-import { DeleteModal } from '@/src/components/features/DeleteModal';
+import { TransactionList } from '@/src/components/features/TransactionList';
+import { DeleteTransactionModal } from '@/src/components/features/DeleteTransactionModal';
 import { transactionService } from '@/src/services/transactions';
 
-interface RecentsTransactionsCardProps {
+interface RecentsTransactionsListProps {
   transactions: Transaction[];
 }
 
-export function RecentsTransactionsCard({
+export function RecentsTransactionsList({
   transactions,
-}: RecentsTransactionsCardProps) {
+}: RecentsTransactionsListProps) {
   const router = useRouter();
 
   const recentsTransactions =
@@ -62,29 +59,12 @@ export function RecentsTransactionsCard({
   };
 
   return (
-    <Container>
-      <Heading title="Transações Recentes" className="mb-11" />
-      <ul className="flex flex-col gap-5">
-        {recentsTransactions.map((transaction) => (
-          <ItemList
-            key={transaction.id}
-            id={transaction.id}
-            value={transaction.value}
-            date={transaction.createdAt}
-            kind={transaction.transactionType}
-            description={transaction.description}
-            onEditItem={() => handleEditClick(transaction.id)}
-            onDeleteItem={() => handleDeleteClick(transaction.id)}
-          />
-        ))}
-      </ul>
-      <Link
-        label="Veja Mais"
-        iconRight="ArrowRightSLine"
-        href="/transactions"
-        className="mt-10 w-fit ml-auto"
+    <>
+      <TransactionList
+        transactions={recentsTransactions}
+        onEdit={handleEditClick}
+        onDelete={handleDeleteClick}
       />
-
       <TransactionModal
         key={`edit-${selectedTransaction?.id}`}
         isOpen={isEditModalOpen}
@@ -94,17 +74,13 @@ export function RecentsTransactionsCard({
       />
 
       {!!selectedTransaction && (
-        <DeleteModal
+        <DeleteTransactionModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          description={
-            selectedTransaction?.description
-              ? `Tem certeza que deseja excluir a transação de ${selectedTransaction?.description}?`
-              : 'Tem certeza que deseja excluir esta transação?'
-          }
+          description={selectedTransaction?.description}
           onConfirm={() => handleConfirmDelete(selectedTransaction.id)}
         />
       )}
-    </Container>
+    </>
   );
 }

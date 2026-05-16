@@ -1,0 +1,1 @@
+export { RecentsTransactionsList } from './RecentsTransactionsList';

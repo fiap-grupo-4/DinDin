@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Modal } from '@/src/components/ui/Modal';
 import { Select } from '@/src/components/ui/Select';
 import { Input } from '@/src/components/ui/Input';
-import { DateInput } from '@/src/components/DateInput';
+import { DateInput } from '@/src/components/ui/DateInput';
 import { Button } from '@/src/components/ui/Button';
 import { InputState } from '../../ui/Input/Input';
 
