@@ -1,1 +1,0 @@
-export { DeleteTransactionModal } from "./DeleteTransactionModal";

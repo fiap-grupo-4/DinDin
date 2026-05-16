@@ -1,6 +1,6 @@
 import { Icon, IconName } from '../Icon';
 
-type InputState = 'default' | 'error';
+export type InputState = 'default' | 'error';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;

@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Lato } from "next/font/google";
-import { Header } from "@/src/components/ui/Header";
-import { Footer } from "@/src/components/ui/Footer";
-import "../styles/globals.css";
+import type { Metadata } from 'next';
+import { Lato } from 'next/font/google';
+import { Header } from '@/src/components/features/Header';
+import { Footer } from '@/src/components/features/Footer';
+import '../styles/globals.css';
 
 const lato = Lato({
-  variable: "--font-lato",
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
+  variable: '--font-lato',
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
 });
 
 export const metadata: Metadata = {
-  title: "DinDin",
-  description: "DinDin é um aplicativo de gerenciamento de finanças pessoais",
+  title: 'DinDin',
+  description: 'DinDin é um aplicativo de gerenciamento de finanças pessoais',
 };
 
 export default function RootLayout({

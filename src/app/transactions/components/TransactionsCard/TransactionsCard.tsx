@@ -1,19 +1,19 @@
 'use client';
 
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
-import { Container } from '../../ui/Container';
-import { Heading } from '../../ui/Heading';
-import { ItemList } from '../../ui/ItemList';
-import { Link } from '../../ui/Link';
-import { Button } from '../../ui/Button';
-import { Input } from '../../ui/Input';
-import { Select } from '../../ui/Select';
-import { DateInput } from '../../ui/DateInput';
+import { Container } from '@/src/components/ui/Container';
+import { Heading } from '@/src/components/ui/Heading';
+import { ItemList } from '@/src/components/features/ItemList';
+import { Link } from '@/src/components/ui/Link';
+import { Button } from '@/src/components/ui/Button';
+import { Input } from '@/src/components/ui/Input';
+import { Select } from '@/src/components/ui/Select';
+import { DateInput } from '@/src/components/DateInput';
 import { startTransition, useEffect, useState } from 'react';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
-import { TransactionModal } from '../TransactionModal';
-import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
+import { TransactionModal } from '@/src/components/features/TransactionModal';
+import { DeleteModal } from '@/src/components/features/DeleteModal';
 import { transactionService } from '@/src/services/transactions';
 
 interface TransactionsCardProps {
@@ -166,7 +166,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
       />
       <Container className="mb-6">
         <div className="mb-4 flex flex-col gap-3 md:mb-11 md:flex-row md:items-center md:justify-between">
-          <Heading title="Transações Recentes" />
+          <Heading title="Transações" />
           <Button
             label="Nova Transação"
             size="sm"
@@ -257,12 +257,18 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
         onSave={handleSaveTransaction}
       />
 
-      <DeleteTransactionModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        transaction={selectedTransaction}
-        onConfirm={handleConfirmDelete}
-      />
+      {!!selectedTransaction && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          description={
+            selectedTransaction?.description
+              ? `Tem certeza que deseja excluir a transação de ${selectedTransaction?.description}?`
+              : 'Tem certeza que deseja excluir esta transação?'
+          }
+          onConfirm={() => handleConfirmDelete(selectedTransaction.id)}
+        />
+      )}
     </>
   );
 }

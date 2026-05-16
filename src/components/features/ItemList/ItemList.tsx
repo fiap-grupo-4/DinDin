@@ -1,6 +1,6 @@
-import { maskUtils } from "@/src/lib/utils";
-import { Icon } from "../Icon";
-import { TransactionType } from "@/src/types/transactions.types";
+import { maskUtils } from '@/src/lib/utils';
+import { Icon } from '../../ui/Icon';
+import { TransactionType } from '@/src/types/transactions.types';
 
 interface ItemListProps {
   id: string;
@@ -23,8 +23,8 @@ export function ItemList({
 }: ItemListProps) {
   const valueStyles: Record<TransactionType, { label: string; style: string }> =
     {
-      income: { label: "+", style: "text-success-400" },
-      expense: { label: "-", style: "text-danger-400" },
+      income: { label: '+', style: 'text-success-400' },
+      expense: { label: '-', style: 'text-danger-400' },
     };
 
   return (

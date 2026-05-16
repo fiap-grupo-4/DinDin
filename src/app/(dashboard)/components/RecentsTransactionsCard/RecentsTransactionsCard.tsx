@@ -3,14 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Transaction } from '@/src/types/transactions.types';
-import { Container } from '../../ui/Container';
-import { Heading } from '../../ui/Heading';
-import { ItemList } from '../../ui/ItemList';
-import { Link } from '../../ui/Link';
-
-import { DeleteTransactionModal } from '../TransactionModal/DeleteTransaction';
+import { Container } from '@/src/components/ui/Container';
+import { Heading } from '@/src/components/ui/Heading';
+import { ItemList } from '@/src/components/features/ItemList';
+import { Link } from '@/src/components/ui/Link';
+import { TransactionModal } from '@/src/components/features/TransactionModal';
+import { DeleteModal } from '@/src/components/features/DeleteModal';
 import { transactionService } from '@/src/services/transactions';
-import { TransactionModal } from '../TransactionModal';
 
 interface RecentsTransactionsCardProps {
   transactions: Transaction[];
@@ -94,12 +93,18 @@ export function RecentsTransactionsCard({
         onSave={handleSaveTransaction}
       />
 
-      <DeleteTransactionModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        transaction={selectedTransaction}
-        onConfirm={handleConfirmDelete}
-      />
+      {!!selectedTransaction && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          description={
+            selectedTransaction?.description
+              ? `Tem certeza que deseja excluir a transação de ${selectedTransaction?.description}?`
+              : 'Tem certeza que deseja excluir esta transação?'
+          }
+          onConfirm={() => handleConfirmDelete(selectedTransaction.id)}
+        />
+      )}
     </Container>
   );
 }

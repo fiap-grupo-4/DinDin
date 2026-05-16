@@ -1,6 +1,5 @@
 import { Icon, IconName } from '../Icon';
-
-type SelectState = 'default' | 'error';
+import { InputState } from '../Input/Input';
 
 export interface SelectOption {
   label: string;
@@ -13,7 +12,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   helperText?: string;
   errorMessage?: string;
   iconLeft?: IconName;
-  state?: SelectState;
+  state?: InputState;
   options: SelectOption[];
 }
 
@@ -32,7 +31,7 @@ export function Select({
   const baseStyles =
     'w-full h-11 px-3 rounded-md border-2 text-body-lg text-gray-700 outline-none transition';
 
-  const stateStyles: Record<SelectState, string> = {
+  const stateStyles: Record<InputState, string> = {
     default:
       'border-gray-400 bg-white hover:border-gray-500 focus:border-brand-500',
     error:

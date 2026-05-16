@@ -1,5 +1,5 @@
-import { TransactionsCard } from '../../components/features/TransactionsCard';
-import { transactionService } from '../../services/transactions';
+import { transactionService } from '@/src/services/transactions';
+import { TransactionsCard } from './components';
 
 export default async function Transactions() {
   const getTransactions = async () => {

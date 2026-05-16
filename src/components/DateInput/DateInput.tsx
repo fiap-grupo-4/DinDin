@@ -5,9 +5,9 @@ import { DayPicker } from 'react-day-picker';
 import { useEffect, useRef } from 'react';
 import 'react-day-picker/dist/style.css';
 
-import { Input } from '../Input';
+import { Input } from '../ui/Input';
 import { maskUtils, validationUtils } from '@/src/lib/utils';
-import { InputProps } from '../Input/Input';
+import { InputProps } from '../ui/Input/Input';
 
 export interface DateInputProps extends Omit<InputProps, 'value' | 'onChange'> {
   value: string;

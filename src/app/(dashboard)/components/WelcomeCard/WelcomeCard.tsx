@@ -1,9 +1,9 @@
 'use client';
-import { Container } from '../../ui/Container';
-import { Button } from '../../ui/Button';
-import { ProfilePicture } from '../../ui/ProfilePicture/ProfilePicture';
+import { Container } from '../../../../components/ui/Container';
+import { Button } from '../../../../components/ui/Button';
+import { ProfilePicture } from '../../../../components/features/ProfilePicture/ProfilePicture';
 import { WelcomeCardBalanceBtn } from './WelcomeCardBalanceBtn';
-import { TransactionModal } from '../TransactionModal';
+import { TransactionModal } from '@/src/components/features/TransactionModal';
 import { useState } from 'react';
 import { Transaction } from '@/src/types/transactions.types';
 import { transactionService } from '@/src/services/transactions';

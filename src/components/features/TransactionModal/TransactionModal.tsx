@@ -1,12 +1,14 @@
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
+import { FormState } from '@/src/types/forms.types';
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
 import { useState } from 'react';
-import { Modal } from '../../ui/Modal';
-import { Select } from '../../ui/Select';
-import { Input } from '../../ui/Input';
-import { DateInput } from '../../ui/DateInput';
-import { Button } from '../../ui/Button';
+import { Modal } from '@/src/components/ui/Modal';
+import { Select } from '@/src/components/ui/Select';
+import { Input } from '@/src/components/ui/Input';
+import { DateInput } from '@/src/components/DateInput';
+import { Button } from '@/src/components/ui/Button';
+import { InputState } from '../../ui/Input/Input';
 
 interface TransactionModalProps {
   isOpen: boolean;
@@ -15,18 +17,27 @@ interface TransactionModalProps {
   onSave: (transaction: Partial<Transaction>) => Promise<void>;
 }
 
-const getInitialFormState = (values?: Transaction) => ({
+type TransactionFormValues = {
+  transactionType: string;
+  date: string;
+  description: string;
+  value: string;
+};
+
+const getInitialFormState = (
+  values?: Transaction
+): FormState<TransactionFormValues> => ({
   transactionType: {
     value: values?.transactionType ?? TRANSACTION_TYPES[0].value,
     isValid: !!values?.transactionType,
     isTouched: false,
-    validation: (value: string) => value !== '',
+    validation: (value) => value !== '',
   },
   date: {
     value: values?.createdAt ? maskUtils.getDateMask(values.createdAt) : '',
     isValid: !!values?.createdAt,
     isTouched: false,
-    validation: (value: string) => value !== '',
+    validation: (value) => value !== '',
   },
   description: {
     value: values?.description ?? '',
@@ -34,10 +45,10 @@ const getInitialFormState = (values?: Transaction) => ({
     isTouched: false,
   },
   value: {
-    value: values?.value ?? '',
-    isValid: !!values?.value,
+    value: values?.value != null ? maskUtils.getCurrencyMask(values.value) : '',
+    isValid: values?.value != null,
     isTouched: false,
-    validation: (value: string) => value !== '',
+    validation: (value) => value !== '',
   },
 });
 
@@ -47,9 +58,9 @@ export function TransactionModal({
   onSave,
   defaultValues,
 }: TransactionModalProps) {
-  const [transactionForm, setTransactionForm] = useState(
-    getInitialFormState(defaultValues)
-  );
+  const [transactionForm, setTransactionForm] = useState<
+    FormState<TransactionFormValues>
+  >(getInitialFormState(defaultValues));
 
   const handleClose = () => {
     setTransactionForm(getInitialFormState(defaultValues));
@@ -88,19 +99,26 @@ export function TransactionModal({
     setTransactionForm(getInitialFormState());
   };
 
-  const onChangeField = <T,>(
+  const onChangeField = (
     field: keyof typeof transactionForm,
-    newValue: T,
-    validationCb?: (value: T) => boolean
+    newValue: string
   ) => {
     setTransactionForm((prev) => ({
       ...prev,
       [field]: {
-        isValid: validationCb ? validationCb(newValue) : true,
+        isValid: prev[field]?.validation
+          ? prev[field].validation(newValue)
+          : true,
         value: newValue,
         isTouched: true,
       },
     }));
+  };
+
+  const isFieldValid = (field: keyof typeof transactionForm): InputState => {
+    return transactionForm[field].isTouched && !transactionForm[field].isValid
+      ? 'error'
+      : 'default';
   };
 
   return (
@@ -116,55 +134,28 @@ export function TransactionModal({
             label="Tipo"
             options={TRANSACTION_TYPES}
             value={transactionForm.transactionType.value}
-            state={
-              transactionForm.transactionType.isTouched &&
-              !transactionForm.transactionType.isValid
-                ? 'error'
-                : 'default'
-            }
+            state={isFieldValid('transactionType')}
             required
             iconLeft="ListUnordered"
             errorMessage="Tipo inválido"
-            onChange={(e) =>
-              onChangeField<string>(
-                'transactionType',
-                e.target.value,
-                transactionForm.transactionType.validation
-              )
-            }
+            onChange={(e) => onChangeField('transactionType', e.target.value)}
           />
           <Input
             label="Valor"
             placeholder="R$ 0,00"
             value={transactionForm.value.value}
-            state={
-              transactionForm.value.isTouched && !transactionForm.value.isValid
-                ? 'error'
-                : 'default'
-            }
+            state={isFieldValid('value')}
             required
             iconLeft="MoneyDollarCircleLine"
             errorMessage="Valor inválido"
-            onChange={(e) =>
-              onChangeField<string>(
-                'value',
-                e.target.value,
-                transactionForm.value.validation
-              )
-            }
+            onChange={(e) => onChangeField('value', e.target.value)}
           />
           <DateInput
             value={transactionForm.date.value}
-            state={
-              transactionForm.date.isTouched && !transactionForm.date.isValid
-                ? 'error'
-                : 'default'
-            }
+            state={isFieldValid('date')}
             required
             errorMessage="Data inválida"
-            onChange={(value) =>
-              onChangeField('date', value, transactionForm.date.validation)
-            }
+            onChange={(value) => onChangeField('date', value)}
           />
         </div>
 
@@ -173,7 +164,7 @@ export function TransactionModal({
           placeholder="Ex: Mercado, aluguel, salário..."
           iconLeft="DraftLine"
           value={transactionForm.description.value}
-          onChange={(e) => onChangeField<string>('description', e.target.value)}
+          onChange={(e) => onChangeField('description', e.target.value)}
         />
         <div className="mt-2 flex w-full justify-end gap-4">
           <Button kind="secondary" label="Cancelar" onClick={handleClose} />

@@ -1,5 +1,5 @@
-import { Icon, type IconName } from "@/src/components/ui/Icon/Icon";
-import * as CustomIcons from "@/src/components/ui/Icon/partials";
+import { Icon, type IconName } from '@/src/components/ui/Icon/Icon';
+import * as CustomIcons from '@/src/components/ui/Icon/partials';
 
 const iconNames = Object.keys(CustomIcons).sort() as IconName[];
 
@@ -8,7 +8,7 @@ export function IconCatalog() {
     <div
       className="grid gap-3"
       style={{
-        gridTemplateColumns: "repeat(auto-fill, minmax(9.5rem, 1fr))",
+        gridTemplateColumns: 'repeat(auto-fill, minmax(9.5rem, 1fr))',
       }}
     >
       {iconNames.map((name) => (
