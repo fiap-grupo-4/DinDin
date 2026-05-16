@@ -52,20 +52,23 @@ npm run storybook
 
 ```bash
 src/
-├── app/                        # routes and layouts (Next.js)
-│   ├── (auth)/
+├── app/                               # routes and layouts (Next.js)
 │   ├── (dashboard)/
+│   ├── (transaction)/
 │   │   └── transactions/
+│   │     └── components/              # domain exclusive client components
+│   │     │   └── Transactions.tsx
+│   │     └── page.tsx
 │   └── layout.tsx
 ├── components/
-│   ├── ui/                     # primitives components (button, input, badge)
-│   └── features/               # domain components (TransactionCard, etc)
+│   ├── ui/                            # primitives components (button, input, badge)
+│   └── *domain-name*/                 # domain components shared by routes (TransactionModal, etc)
 ├── lib/
-│   ├── constants/              # enum, global constants
+│   ├── constants/                     # enum, global constants
 │   └── utils/
-├── services/                   # calls to API
-├── types/                      # global types
-└── hooks/                      # custom hooks client-side
+├── services/                          # calls to API
+├── types/                             # global types
+└── hooks/                             # custom hooks client-side
 ```
 
 ## Design (Figma)

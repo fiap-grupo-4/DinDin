@@ -1,3 +1,5 @@
+'use client';
+
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
 import { FormState } from '@/src/types/forms.types';

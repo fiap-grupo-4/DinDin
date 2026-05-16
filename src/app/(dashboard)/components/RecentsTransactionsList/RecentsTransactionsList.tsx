@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Transaction } from '@/src/types/transactions.types';
-import { TransactionModal } from '@/src/components/features/TransactionModal';
-import { TransactionList } from '@/src/components/features/TransactionList';
-import { DeleteTransactionModal } from '@/src/components/features/DeleteTransactionModal';
+import { TransactionModal } from '@/src/components/transactions/TransactionModal';
+import { TransactionList } from '@/src/components/transactions/TransactionList';
+import { DeleteTransactionModal } from '@/src/components/transactions/DeleteTransactionModal';
 import { transactionService } from '@/src/services/transactions';
 
 interface RecentsTransactionsListProps {

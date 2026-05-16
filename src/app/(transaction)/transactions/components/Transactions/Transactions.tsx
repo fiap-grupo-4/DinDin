@@ -10,11 +10,11 @@ import { Select } from '@/src/components/ui/Select';
 import { DateInput } from '@/src/components/ui/DateInput';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
-import { TransactionModal } from '@/src/components/features/TransactionModal';
-import { DeleteTransactionModal } from '@/src/components/features/DeleteTransactionModal';
+import { TransactionModal } from '@/src/components/transactions/TransactionModal';
+import { DeleteTransactionModal } from '@/src/components/transactions/DeleteTransactionModal';
 import { transactionService } from '@/src/services/transactions';
 import { FormState } from '@/src/types/forms.types';
-import { TransactionList } from '@/src/components/features/TransactionList';
+import { TransactionList } from '@/src/components/transactions/TransactionList';
 
 interface TransactionsProps {
   transactions: Transaction[];

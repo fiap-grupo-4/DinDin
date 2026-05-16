@@ -8,7 +8,7 @@ import { transactionService } from '@/src/services/transactions';
 
 import { Icon } from '@/src/components/ui/Icon';
 import { Button } from '@/src/components/ui/Button';
-import { TransactionModal } from '@/src/components/features/TransactionModal';
+import { TransactionModal } from '@/src/components/transactions/TransactionModal';
 
 import { maskUtils } from '@/src/lib/utils';
 
