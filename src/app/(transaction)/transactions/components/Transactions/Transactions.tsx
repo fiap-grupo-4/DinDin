@@ -3,7 +3,6 @@
 import { startTransition, useEffect, useState } from 'react';
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
 import { Heading } from '@/src/components/ui/Heading';
-import { TransactionCard } from '@/src/components/features/TransactionCard';
 import { Button } from '@/src/components/ui/Button';
 import { Input } from '@/src/components/ui/Input';
 import { Select } from '@/src/components/ui/Select';
@@ -15,6 +14,7 @@ import { DeleteTransactionModal } from '@/src/components/transactions/DeleteTran
 import { transactionService } from '@/src/services/transactions';
 import { FormState } from '@/src/types/forms.types';
 import { TransactionList } from '@/src/components/transactions/TransactionList';
+import { useForm } from '@/src/hooks/useForm';
 
 interface TransactionsProps {
   transactions: Transaction[];
@@ -83,7 +83,7 @@ const applyTransactionFilters = (
   );
 
 export function Transactions({ transactions }: TransactionsProps) {
-  const [filterForm, setFilterForm] = useState<FormState<FilterFormValues>>(
+  const { form, onChangeField, resetForm } = useForm<FilterFormValues>(
     getInitialFormState()
   );
 
@@ -99,7 +99,7 @@ export function Transactions({ transactions }: TransactionsProps) {
     useState<Transaction | null>(null);
 
   const resetFiltersAndSetList = (list: Transaction[]) => {
-    setFilterForm(getInitialFormState());
+    resetForm();
     setListTransactions(list);
     setFilteredTransactions(list);
   };
@@ -161,27 +161,12 @@ export function Transactions({ transactions }: TransactionsProps) {
   const handleFilterFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setFilteredTransactions(
-      applyTransactionFilters(listTransactions, filterForm)
-    );
+    setFilteredTransactions(applyTransactionFilters(listTransactions, form));
   };
 
   const handleFilterFormReset = () => {
-    setFilterForm(getInitialFormState());
+    resetForm();
     setFilteredTransactions(listTransactions);
-  };
-
-  const onChangeField = (field: keyof typeof filterForm, newValue: string) => {
-    setFilterForm((prev) => ({
-      ...prev,
-      [field]: {
-        isValid: prev[field]?.validation
-          ? prev[field].validation(newValue)
-          : true,
-        value: newValue,
-        isTouched: true,
-      },
-    }));
   };
 
   useEffect(() => {
@@ -208,17 +193,17 @@ export function Transactions({ transactions }: TransactionsProps) {
             label="Busca"
             iconRight="SearchLine"
             placeholder="Buscar transações..."
-            value={filterForm.description.value}
+            value={form.description.value}
             onChange={(e) => onChangeField('description', e.target.value)}
           />
           <Select
             label="Tipo"
             options={TRANSACTION_TYPES}
-            value={filterForm.transactionType.value}
+            value={form.transactionType.value}
             onChange={(e) => onChangeField('transactionType', e.target.value)}
           />
           <DateInput
-            value={filterForm.date.value}
+            value={form.date.value}
             onChange={(value) => onChangeField('date', value)}
           />
         </div>

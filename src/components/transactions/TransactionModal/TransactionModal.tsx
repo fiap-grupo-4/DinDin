@@ -4,13 +4,12 @@ import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
 import { FormState } from '@/src/types/forms.types';
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
-import { useState } from 'react';
 import { Modal } from '@/src/components/ui/Modal';
 import { Select } from '@/src/components/ui/Select';
 import { Input } from '@/src/components/ui/Input';
 import { DateInput } from '@/src/components/ui/DateInput';
 import { Button } from '@/src/components/ui/Button';
-import { InputState } from '../../ui/Input/Input';
+import { useForm } from '@/src/hooks/useForm';
 
 interface TransactionModalProps {
   isOpen: boolean;
@@ -33,13 +32,21 @@ const getInitialFormState = (
     value: values?.transactionType ?? TRANSACTION_TYPES[0].value,
     isValid: !!values?.transactionType,
     isTouched: false,
-    validation: (value) => value !== '',
+    validation: (value) => {
+      if (value === '')
+        return { value: false, message: 'Selecione um tipo de transação.' };
+      return true;
+    },
   },
   date: {
     value: values?.createdAt ? maskUtils.getDateMask(values.createdAt) : '',
     isValid: !!values?.createdAt,
     isTouched: false,
-    validation: (value) => value !== '',
+    validation: (value) => {
+      if (value === '')
+        return { value: false, message: 'Informe a data da transação.' };
+      return true;
+    },
   },
   description: {
     value: values?.description ?? '',
@@ -50,7 +57,11 @@ const getInitialFormState = (
     value: values?.value != null ? maskUtils.getCurrencyMask(values.value) : '',
     isValid: values?.value != null,
     isTouched: false,
-    validation: (value) => value !== '',
+    validation: (value) => {
+      if (value === '')
+        return { value: false, message: 'Informe um valor da transação.' };
+      return true;
+    },
   },
 });
 
@@ -60,67 +71,35 @@ export function TransactionModal({
   onSave,
   defaultValues,
 }: TransactionModalProps) {
-  const [transactionForm, setTransactionForm] = useState<
-    FormState<TransactionFormValues>
-  >(getInitialFormState(defaultValues));
+  const { form, isFieldValid, onChangeField, validateFields, resetForm } =
+    useForm<TransactionFormValues>(getInitialFormState(defaultValues));
 
   const handleClose = () => {
-    setTransactionForm(getInitialFormState(defaultValues));
+    resetForm();
     onClose();
   };
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (Object.values(transactionForm).some((field) => !field.isValid)) {
-      setTransactionForm((prev) => ({
-        transactionType: { ...prev.transactionType, isTouched: true },
-        date: { ...prev.date, isTouched: true },
-        description: { ...prev.description, isTouched: true },
-        value: { ...prev.value, isTouched: true },
-      }));
+    if (Object.values(form).some((field) => !field.isValid)) {
+      validateFields(['date', 'description', 'transactionType', 'value']);
       return;
     }
 
-    const createdAt = maskUtils.parseDateString(transactionForm.date.value);
+    const createdAt = maskUtils.parseDateString(form.date.value);
     if (!createdAt) {
-      setTransactionForm((prev) => ({
-        ...prev,
-        date: { ...prev.date, isTouched: true },
-      }));
+      validateFields('date');
       return;
     }
 
     onSave({
       id: defaultValues?.id,
-      value: Number(transactionForm.value.value),
-      description: transactionForm.description.value,
-      transactionType: transactionForm.transactionType.value as TransactionType,
+      value: Number(form.value.value),
+      description: form.description.value,
+      transactionType: form.transactionType.value as TransactionType,
       createdAt,
     });
-    setTransactionForm(getInitialFormState());
-  };
-
-  const onChangeField = (
-    field: keyof typeof transactionForm,
-    newValue: string
-  ) => {
-    setTransactionForm((prev) => ({
-      ...prev,
-      [field]: {
-        isValid: prev[field]?.validation
-          ? prev[field].validation(newValue)
-          : true,
-        value: newValue,
-        isTouched: true,
-      },
-    }));
-  };
-
-  const isFieldValid = (field: keyof typeof transactionForm): InputState => {
-    return transactionForm[field].isTouched && !transactionForm[field].isValid
-      ? 'error'
-      : 'default';
+    resetForm();
   };
 
   return (
@@ -135,28 +114,28 @@ export function TransactionModal({
           <Select
             label="Tipo"
             options={TRANSACTION_TYPES}
-            value={transactionForm.transactionType.value}
+            value={form.transactionType.value}
             state={isFieldValid('transactionType')}
             required
             iconLeft="ListUnordered"
-            errorMessage="Tipo inválido"
+            errorMessage={form.transactionType.errorMessage}
             onChange={(e) => onChangeField('transactionType', e.target.value)}
           />
           <Input
             label="Valor"
             placeholder="R$ 0,00"
-            value={transactionForm.value.value}
+            value={form.value.value}
             state={isFieldValid('value')}
             required
             iconLeft="MoneyDollarCircleLine"
-            errorMessage="Valor inválido"
+            errorMessage={form.value.errorMessage}
             onChange={(e) => onChangeField('value', e.target.value)}
           />
           <DateInput
-            value={transactionForm.date.value}
+            value={form.date.value}
             state={isFieldValid('date')}
             required
-            errorMessage="Data inválida"
+            errorMessage={form.date.errorMessage}
             onChange={(value) => onChangeField('date', value)}
           />
         </div>
@@ -165,7 +144,7 @@ export function TransactionModal({
           label="Descrição"
           placeholder="Ex: Mercado, aluguel, salário..."
           iconLeft="DraftLine"
-          value={transactionForm.description.value}
+          value={form.description.value}
           onChange={(e) => onChangeField('description', e.target.value)}
         />
         <div className="mt-2 flex w-full justify-end gap-4">
