@@ -2,11 +2,7 @@
 
 import { startTransition, useEffect, useState } from 'react';
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
-import { Heading } from '@/src/components/ui/Heading';
-import { Button } from '@/src/components/ui/Button';
-import { Input } from '@/src/components/ui/Input';
-import { Select } from '@/src/components/ui/Select';
-import { DateInput } from '@/src/components/ui/DateInput';
+import { Heading, Button, Input, Select, DateInput } from '@dindin/ui';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { TransactionModal } from '@/src/components/transactions/TransactionModal';

@@ -3,11 +3,8 @@ import {
   BalanceButton,
   SummaryCardDetails,
 } from './components';
-import { Heading } from '@/src/components/ui/Heading';
-import { Container } from '@/src/components/ui/Container';
+import { Heading, ProfilePicture, Container, Link } from '@dindin/ui';
 import { transactionService } from '@/src/services/transactions';
-import { Link } from '@/src/components/ui/Link';
-import { ProfilePicture } from '@/src/components/ui/ProfilePicture';
 
 export default async function DashboardPage() {
   const getTransactions = async () => {

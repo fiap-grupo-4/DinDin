@@ -1,12 +1,12 @@
-import { Icon, IconName } from '../Icon';
-import { InputState } from '../Input/Input';
+import { Icon, IconName } from "../Icon";
+import { InputState } from "../Input/Input";
 
 export interface SelectOption {
   label: string;
   value: string;
 }
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   required?: boolean;
   helperText?: string;
@@ -22,24 +22,24 @@ export function Select({
   helperText,
   errorMessage,
   iconLeft,
-  state = 'default',
+  state = "default",
   disabled,
-  className = '',
+  className = "",
   options,
   ...props
 }: SelectProps) {
   const baseStyles =
-    'w-full h-11 px-3 rounded-md border-2 text-body-lg text-gray-700 outline-none transition';
+    "w-full h-11 px-3 rounded-md border-2 text-body-lg text-gray-700 outline-none transition";
 
   const stateStyles: Record<InputState, string> = {
     default:
-      'border-gray-400 bg-white hover:border-gray-500 focus:border-brand-500',
+      "border-gray-400 bg-white hover:border-gray-500 focus:border-brand-500",
     error:
-      'border-danger-400 bg-white hover:border-danger-500 focus:border-danger-500',
+      "border-danger-400 bg-white hover:border-danger-500 focus:border-danger-500",
   };
 
   const disabledStyles =
-    'bg-gray-200 border-gray-400 cursor-not-allowed opacity-60';
+    "bg-gray-200 border-gray-400 cursor-not-allowed opacity-60";
 
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -60,8 +60,8 @@ export function Select({
                     appearance-none
                     ${baseStyles}
                     ${stateStyles[state]}
-                    ${disabled ? disabledStyles : ''}
-                    ${iconLeft ? 'pl-10' : ''}
+                    ${disabled ? disabledStyles : ""}
+                    ${iconLeft ? "pl-10" : ""}
                     pr-10
                     ${className}
             `}
@@ -78,13 +78,13 @@ export function Select({
           <Icon name="ArrowDownSLine" size={20} />
         </span>
       </div>
-      {(helperText || (errorMessage && state === 'error')) && (
+      {(helperText || (errorMessage && state === "error")) && (
         <span
           className={`text-body-xs ${
-            state === 'error' ? 'text-danger-500' : 'text-gray-500'
+            state === "error" ? "text-danger-500" : "text-gray-500"
           }`}
         >
-          {state === 'error' ? errorMessage : helperText}
+          {state === "error" ? errorMessage : helperText}
         </span>
       )}
     </div>

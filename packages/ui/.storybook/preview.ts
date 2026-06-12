@@ -1,3 +1,6 @@
+// Provide a minimal ambient declaration so TS accepts side-effect CSS imports here
+declare module "*.css";
+
 import type { Preview } from "@storybook/nextjs-vite";
 import "../src/styles/globals.css";
 

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { DayPicker } from 'react-day-picker';
-import { useEffect, useRef } from 'react';
-import 'react-day-picker/dist/style.css';
+import { useState } from "react";
+import { DayPicker } from "react-day-picker";
+import { useEffect, useRef } from "react";
+import "react-day-picker/dist/style.css";
 
-import { Input } from '../Input';
-import { validationUtils } from '@/src/lib/utils';
-import { InputProps } from '../Input/Input';
+import { Input } from "../Input";
+import { validationUtils } from "./validation";
+import { InputProps } from "../Input/Input";
 
-export interface DateInputProps extends Omit<InputProps, 'value' | 'onChange'> {
+export interface DateInputProps extends Omit<InputProps, "value" | "onChange"> {
   value: string;
   onChange: (value: string) => void;
 }
@@ -26,9 +26,9 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -39,7 +39,7 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
         return;
       }
 
-      const parts = date.split('/');
+      const parts = date.split("/");
 
       if (parts.length !== 3) {
         setDate(undefined);
@@ -80,7 +80,7 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
             selected={date}
             onSelect={(selected) => {
               setDate(selected);
-              onChange(selected ? selected.toLocaleDateString('pt-BR') : '');
+              onChange(selected ? selected.toLocaleDateString("pt-BR") : "");
               setOpen(false);
             }}
           />

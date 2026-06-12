@@ -4,11 +4,7 @@ import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
 import { FormState } from '@/src/types/forms.types';
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
-import { Modal } from '@/src/components/ui/Modal';
-import { Select } from '@/src/components/ui/Select';
-import { Input } from '@/src/components/ui/Input';
-import { DateInput } from '@/src/components/ui/DateInput';
-import { Button } from '@/src/components/ui/Button';
+import { Modal, Select, Input, DateInput, Button } from '@dindin/ui';
 import { useForm } from '@/src/hooks/useForm';
 
 interface TransactionModalProps {

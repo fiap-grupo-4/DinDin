@@ -1,7 +1,6 @@
 import { transactionService } from '@/src/services/transactions';
 import { Transactions } from './components/Transactions';
-import { Link } from '@/src/components/ui/Link';
-import { Container } from '@/src/components/ui/Container';
+import { Container, Link } from '@dindin/ui';
 
 export default async function TransactionsPage() {
   const getTransactions = async () => {

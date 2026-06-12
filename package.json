@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
-    "server": "npx json-server -p 4000 ./config/db/db.json5"
+    "server": "npx json-server -p 4000 ./config/db/db.json5",
+    "storybook:ui": "pnpm --filter @dindin/ui storybook"
   },
   "packageManager": "pnpm@10.32.1",
   "devDependencies": {

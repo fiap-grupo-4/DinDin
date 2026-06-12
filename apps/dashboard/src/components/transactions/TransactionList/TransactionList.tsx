@@ -1,6 +1,6 @@
 import { Transaction, TransactionType } from '@/src/types/transactions.types';
 import { maskUtils } from '@/src/lib/utils';
-import { Icon } from '../../ui/Icon';
+import { Icon } from '@dindin/ui';
 
 interface TransactionListProps {
   transactions: Transaction[];

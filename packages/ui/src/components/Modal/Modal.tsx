@@ -1,33 +1,33 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
-import { Icon } from '../Icon/Icon';
-import { Heading } from '../Heading/Heading';
+import { ReactNode } from "react";
+import { Icon } from "../Icon/Icon";
+import { Heading } from "../Heading/Heading";
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
-  kind?: 'default' | 'danger';
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+  kind?: "default" | "danger";
+  maxWidth?: "sm" | "md" | "lg" | "xl";
 }
 
 export function Modal({
   isOpen,
   onClose,
   title,
-  kind = 'default',
+  kind = "default",
   children,
-  maxWidth = 'md',
+  maxWidth = "md",
 }: ModalProps) {
   if (!isOpen) return null;
 
   const maxWidthClasses = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-3xl',
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-3xl",
   };
 
   return (

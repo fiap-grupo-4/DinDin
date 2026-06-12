@@ -1,4 +1,4 @@
-import { SelectOption } from '@/src/components/ui/Select/Select';
+import { SelectOption } from '@dindin/ui';
 
 export const TRANSACTION_TYPES: SelectOption[] = [
   { label: 'Selecione um tipo', value: '' },

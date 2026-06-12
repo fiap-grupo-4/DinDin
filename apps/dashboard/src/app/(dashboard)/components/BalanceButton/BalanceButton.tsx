@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Transaction } from '@/src/types/transactions.types';
 import { transactionService } from '@/src/services/transactions';
 
-import { Icon } from '@/src/components/ui/Icon';
-import { Button } from '@/src/components/ui/Button';
+import { Icon, Button } from '@dindin/ui';
 import { TransactionModal } from '@/src/components/transactions/TransactionModal';
 
 import { maskUtils } from '@/src/lib/utils';

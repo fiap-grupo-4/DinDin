@@ -3,7 +3,7 @@ import { Icon, IconName } from "../Icon";
 type ButtonKind = "primary" | "secondary" | "danger";
 type ButtonSize = "md" | "sm";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   icon?: IconName;
   size?: ButtonSize;

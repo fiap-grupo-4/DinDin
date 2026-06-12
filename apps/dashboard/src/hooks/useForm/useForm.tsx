@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { InputState } from '@/src/components/ui/Input/Input';
+import { InputState } from '@dindin/ui';
 import { FormFieldCustomValidation, FormState } from '@/src/types/forms.types';
 
 export function useForm<T extends Record<string, unknown>>(

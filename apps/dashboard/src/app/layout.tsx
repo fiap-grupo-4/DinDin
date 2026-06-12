@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
-import { Header } from '@/src/components/ui/Header';
-import { Footer } from '@/src/components/ui/Footer';
-import '../styles/globals.css';
+import { Header, Footer } from '@dindin/ui';
+import '@dindin/ui/styles/index.css';
 
 const lato = Lato({
   variable: '--font-lato',
