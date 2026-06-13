@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Link as LinkComponent } from "./Link";
 
 const meta = {
@@ -24,7 +24,7 @@ export const LeftIcon: Story = {
   args: {
     label: "Link to nowhere",
     href: "#",
-    iconLeft: "StarLine"
+    iconLeft: "StarLine",
   },
 };
 
@@ -32,6 +32,6 @@ export const RightIcon: Story = {
   args: {
     label: "Link to nowhere",
     href: "#",
-    iconRight: "StarLine"
+    iconRight: "StarLine",
   },
 };

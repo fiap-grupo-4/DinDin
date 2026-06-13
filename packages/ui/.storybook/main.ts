@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/nextjs-vite";
+import type { StorybookConfig } from "@storybook/react-vite";
 import { fileURLToPath } from "node:url";
 
 const config: StorybookConfig = {
@@ -14,7 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-onboarding",
   ],
-  framework: "@storybook/nextjs-vite",
+  framework: "@storybook/react-vite",
   async viteFinal(config) {
     const { default: tailwindcss } = await import("@tailwindcss/vite");
     const packageRoot = fileURLToPath(new URL("..", import.meta.url));

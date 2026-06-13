@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Input } from './Input';
+import { Input } from "./Input";
 
 const meta = {
-  title: 'Components/Input',
+  title: "Components/Input",
   component: Input,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Input>;
 
 export default meta;
@@ -16,50 +16,50 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   args: {
-    label: 'Input',
-    placeholder: 'Write here',
+    label: "Input",
+    placeholder: "Write here",
   },
 };
 
 export const Error: Story = {
   args: {
-    label: 'Input',
-    placeholder: 'Write here',
-    state: 'error',
+    label: "Input",
+    placeholder: "Write here",
+    state: "error",
   },
 };
 
 export const Required: Story = {
   args: {
-    label: 'Input',
+    label: "Input",
     required: true,
   },
 };
 
 export const HelperText: Story = {
   args: {
-    label: 'Input',
-    helperText: 'This is an input',
+    label: "Input",
+    helperText: "This is an input",
   },
 };
 
 export const LeftIcon: Story = {
   args: {
-    label: 'Input',
-    iconLeft: 'StarLine',
+    label: "Input",
+    iconLeft: "StarLine",
   },
 };
 
 export const RightIcon: Story = {
   args: {
-    label: 'Input',
-    iconRight: 'StarLine',
+    label: "Input",
+    iconRight: "StarLine",
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Input',
+    label: "Input",
     disabled: true,
     placeholder: "Don't write here",
   },

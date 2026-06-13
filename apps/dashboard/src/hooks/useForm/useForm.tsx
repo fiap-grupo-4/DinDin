@@ -1,48 +1,19 @@
 import { useState } from 'react';
+import {
+  resetForm as resetFormCore,
+  updateField,
+  validateFields as validateFieldsCore,
+} from '@dindin/form-control';
+import type { FormState } from '@dindin/form-control';
 import { InputState } from '@dindin/ui';
-import { FormFieldCustomValidation, FormState } from '@/src/types/forms.types';
 
 export function useForm<T extends Record<string, unknown>>(
   defaultValues: FormState<T>
 ) {
   const [form, setForm] = useState<FormState<T>>(defaultValues);
 
-  const getFieldValidation = (
-    validation: boolean | FormFieldCustomValidation
-  ): { isValid: boolean; errorMessage?: string } => {
-    if (typeof validation === 'boolean') {
-      return { isValid: validation };
-    }
-
-    return { isValid: validation.value, errorMessage: validation.message };
-  };
-
-  const validateField = <K extends keyof T>(
-    value: T[K],
-    field: FormState<T>[K]
-  ): { isValid: boolean; errorMessage?: string } => {
-    if (!field.validation) {
-      return { isValid: field.isValid };
-    }
-
-    return getFieldValidation(field.validation(value));
-  };
-
   const onChangeField = <K extends keyof T>(field: K, newValue: T[K]) => {
-    setForm((prev) => {
-      const { isValid, errorMessage } = validateField(newValue, prev[field]);
-
-      return {
-        ...prev,
-        [field]: {
-          ...prev[field],
-          isValid,
-          errorMessage,
-          value: newValue,
-          isTouched: true,
-        },
-      };
-    });
+    setForm((prev) => updateField(prev, field, newValue));
   };
 
   const isFieldValid = (field: keyof typeof form): InputState => {
@@ -50,31 +21,11 @@ export function useForm<T extends Record<string, unknown>>(
   };
 
   const validateFields = (fields: keyof T | (keyof T)[]) => {
-    const keys = Array.isArray(fields) ? fields : [fields];
-
-    setForm((prev) => {
-      const next = { ...prev };
-
-      keys.forEach((field) => {
-        const { isValid, errorMessage } = validateField(
-          prev[field].value,
-          prev[field]
-        );
-
-        next[field] = {
-          ...prev[field],
-          isValid,
-          errorMessage,
-          isTouched: true,
-        };
-      });
-
-      return next;
-    });
+    setForm((prev) => validateFieldsCore(prev, fields));
   };
 
   const resetForm = () => {
-    setForm(defaultValues);
+    setForm(resetFormCore(defaultValues));
   };
 
   return {
