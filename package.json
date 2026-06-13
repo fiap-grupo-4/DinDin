@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:transactions": "pnpm --filter transactions dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
     "server": "npx json-server -p 4000 ./config/db/db.json5",

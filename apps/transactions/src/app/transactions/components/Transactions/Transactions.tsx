@@ -1,15 +1,15 @@
 'use client';
 
 import { startTransition, useEffect, useState } from 'react';
-import { Transaction, TransactionType } from '@/src/types/transactions.types';
+import { Transaction, TransactionType } from '@/types/transactions.types';
 import { Heading, Button, Input, Select, DateInput } from '@dindin/ui';
 import { maskUtils } from '@/src/lib/utils';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
-import { TransactionModal } from '@/src/components/transactions/TransactionModal';
-import { DeleteTransactionModal } from '@/src/components/transactions/DeleteTransactionModal';
+import { TransactionModal } from '@/src/components/TransactionModal';
+import { DeleteTransactionModal } from '@/src/components/DeleteTransactionModal';
 import { transactionService } from '@/src/services/transactions';
-import { FormState } from '@/src/types/forms.types';
-import { TransactionList } from '@/src/components/transactions/TransactionList';
+import { FormState } from '@dindin/form-control';
+import { TransactionList } from '@/src/components/TransactionList';
 import { useForm } from '@/src/hooks/useForm';
 
 interface TransactionsProps {
@@ -75,7 +75,7 @@ const applyTransactionFilters = (
         transaction.transactionType,
         form.transactionType.value
       ) &&
-      applyDateFilter(transaction.createdAt, form.date.value)
+      applyDateFilter(new Date(transaction.createdAt), form.date.value)
   );
 
 export function Transactions({ transactions }: TransactionsProps) {
