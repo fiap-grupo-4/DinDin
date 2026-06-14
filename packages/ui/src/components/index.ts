@@ -10,3 +10,4 @@ export * from "./Link";
 export * from "./Modal";
 export * from "./ProfilePicture";
 export * from "./Select";
+export * from "./BaseLayout";

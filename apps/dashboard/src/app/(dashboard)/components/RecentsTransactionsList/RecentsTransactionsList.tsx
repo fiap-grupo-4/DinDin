@@ -1,85 +1,55 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Transaction } from '@/src/types/transactions.types';
-import { TransactionModal } from '@/src/components/transactions/TransactionModal';
-import { TransactionList } from '@/src/components/transactions/TransactionList';
-import { DeleteTransactionModal } from '@/src/components/transactions/DeleteTransactionModal';
-import { transactionService } from '@/src/services/transactions';
+import { Transaction, TransactionType } from '@/src/types/transactions.types';
+import { maskUtils } from '@/src/lib/utils';
 
 interface RecentsTransactionsListProps {
   transactions: Transaction[];
 }
 
+const valueStyles: Record<TransactionType, { label: string; style: string }> = {
+  income: { label: '+', style: 'text-success-400' },
+  expense: { label: '-', style: 'text-danger-400' },
+};
+
 export function RecentsTransactionsList({
   transactions,
 }: RecentsTransactionsListProps) {
-  const router = useRouter();
-
   const recentsTransactions =
     transactions.length > 5 ? transactions.slice(0, 5) : transactions;
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] =
-    useState<Transaction | null>(null);
-
-  const handleEditClick = (id: string) => {
-    const transaction = transactions.find((t) => t.id === id) || null;
-    setSelectedTransaction(transaction);
-    setIsEditModalOpen(true);
-  };
-
-  const handleDeleteClick = (id: string) => {
-    const transaction = transactions.find((t) => t.id === id) || null;
-    setSelectedTransaction(transaction);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleSaveTransaction = async (updatedData: Partial<Transaction>) => {
-    try {
-      await transactionService.updateTransactions(updatedData);
-
-      setIsEditModalOpen(false);
-      router.refresh();
-    } catch (error) {
-      console.error('Erro ao editar transação:', error);
-    }
-  };
-
-  const handleConfirmDelete = async (id: string) => {
-    try {
-      await transactionService.deleteTransactions(id);
-      setIsDeleteModalOpen(false);
-      router.refresh();
-    } catch (error) {
-      console.error('Erro ao excluir transação:', error);
-    }
-  };
-
   return (
     <>
-      <TransactionList
-        transactions={recentsTransactions}
-        onEdit={handleEditClick}
-        onDelete={handleDeleteClick}
-      />
-      <TransactionModal
-        key={`edit-${selectedTransaction?.id}`}
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        defaultValues={selectedTransaction as Transaction}
-        onSave={handleSaveTransaction}
-      />
-
-      {!!selectedTransaction && (
-        <DeleteTransactionModal
-          isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
-          description={selectedTransaction?.description}
-          onConfirm={() => handleConfirmDelete(selectedTransaction.id)}
-        />
+      {recentsTransactions.length > 0 ? (
+        <ul className="flex flex-col gap-5">
+          {recentsTransactions.map(
+            ({ id, description, value, transactionType, createdAt }) => (
+              <li
+                key={id}
+                className="bg-gray-200 min-h-16 px-4 py-2 rounded-md flex items-stretch justify-between gap-3"
+              >
+                <div className="flex flex-col flex-1 justify-center min-w-0">
+                  <p className="text-body-sm text-gray-600 truncate">
+                    {description}
+                  </p>
+                  <p
+                    className={`truncate ${valueStyles[transactionType].style}`}
+                  >
+                    {valueStyles[transactionType].label}{' '}
+                    {maskUtils.getCurrencyMask(value)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="text-body-md text-gray-600">
+                    {maskUtils.getDateMask(createdAt)}
+                  </p>
+                </div>
+              </li>
+            )
+          )}
+        </ul>
+      ) : (
+        <p className="text-center mb-8">Nenhuma transação encontrada.</p>
       )}
     </>
   );

@@ -2,10 +2,10 @@
 
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
-import { FormState } from '@/src/types/forms.types';
 import { Transaction, TransactionType } from '@/types/transactions.types';
 import { Modal, Select, Input, DateInput, Button } from '@dindin/ui';
 import { useForm } from '@/src/hooks/useForm';
+import { FormState } from '@dindin/form-control';
 
 interface TransactionModalProps {
   isOpen: boolean;

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
-import { Header, Footer } from '@dindin/ui';
+import { BaseLayout } from '@dindin/ui';
 import '@dindin/ui/styles/index.css';
 
 const lato = Lato({
@@ -19,18 +19,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="pt-BR"
-      className={`${lato.variable} h-full antialiased flex flex-col`}
-    >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="flex-1 items-center flex flex-col lg:grid lg:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
-  );
+  return <BaseLayout className={lato.variable}>{children}</BaseLayout>;
 }
