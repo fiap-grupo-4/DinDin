@@ -1,76 +1,124 @@
 # DinDin
 
-DinDin is a financial management web application that helps users track transactions, visualize spending, and stay organized.
+DinDin é um monorepo para uma aplicação de gestão financeira pessoal, composta por duas interfaces Web em Next.js e por pacotes compartilhados de UI, HTTP e validação de formulários.
 
-This project was developed as part of a postgraduate course at FIAP.
+## Visão geral
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+O projeto tem como objetivo reunir:
 
-## Getting Started
+- um painel principal para visualização e navegação;
+- um módulo dedicado a transações;
+- componentes reutilizáveis e utilidades compartilhadas entre as aplicações.
 
-First, you must create .env file following the example file ".env.example".
+## Arquitetura do monorepo
 
-To simulate api requests this project uses json-server. You must run it for local development by using this command:
+A estrutura principal é organizada da seguinte forma:
+
+- apps/dashboard
+  - aplicação principal do produto;
+  - usa os pacotes compartilhados e redireciona rotas para o módulo de transações.
+- apps/transactions
+  - aplicação dedicada à gestão de transações;
+  - expõe a experiência específica do fluxo de cadastro/consulta/edição.
+- packages/ui
+  - biblioteca de componentes visuais reutilizáveis.
+- packages/http
+  - cliente HTTP compartilhado para chamadas de API.
+- packages/form-control
+  - utilidades e helpers para formulários e controles.
+- config/db
+  - base local para mock de API com json-server.
+
+## Ferramentas e tecnologias
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- pnpm + Turbo
+- Storybook
+- json-server
+
+## Como as aplicações se comunicam
+
+A comunicação entre as partes do projeto acontece de três formas principais:
+
+1. Dependências workspace
+   - As aplicações consomem pacotes internos via workspace do pnpm.
+   - Isso evita duplicação de código e mantém a UI e as regras de HTTP centralizadas.
+
+2. Rewrites entre as aplicações
+   - A aplicação dashboard usa a configuração de rewrites no arquivo apps/dashboard/next.config.ts.
+   - Isso permite que rotas como /transactions sejam encaminhadas para a aplicação transactions.
+
+3. API local simulada
+   - As chamadas de HTTP apontam para uma base local executada com json-server.
+   - A URL da API é definida por variável de ambiente para facilitar o desenvolvimento local.
+
+## Como rodar o projeto
+
+### 1. Instalar dependências
 
 ```bash
-npm run server
-# or
-yarn run server
-# or
-pnpm run server
-# or
-bun run server
+pnpm install
 ```
 
-Then, run the development server:
+### 2. Configurar variáveis de ambiente
+
+Crie um arquivo .env para cada aplicação com base no exemplo disponível em env.example.
+
+### 3. Iniciar a API mock
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm server
+```
+
+A API ficará disponível em:
+
+- http://localhost:4000
+
+### 4. Rodar as aplicações
+
+É possível rodar as aplicações das seguintes formas:
+
+Em um único terminal:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Running Storybook
-
-This project uses storybook for component's documentation, to run it local use this command:
+Em terminais separados:
 
 ```bash
-npm run storybook
+pnpm dev:dashboard
 ```
-
-## Architectural Patterns
 
 ```bash
-src/
-├── app/                               # routes and layouts (Next.js)
-│   ├── (dashboard)/
-│   ├── (transaction)/
-│   │   └── transactions/
-│   │     └── components/              # domain exclusive client components
-│   │     │   └── Transactions.tsx
-│   │     └── page.tsx
-│   └── layout.tsx
-├── components/
-│   ├── ui/                            # primitives components (button, input, badge)
-│   └── *domain-name*/                 # domain components shared by routes (TransactionModal, etc)
-├── lib/
-│   ├── constants/                     # enum, global constants
-│   └── utils/
-├── services/                          # calls to API
-├── types/                             # global types
-└── hooks/                             # custom hooks client-side
+pnpm dev:transactions
 ```
 
-## Design (Figma)
+Os serviços ficam em:
 
-You can access the design system, prototypes, and UI decisions here: [View Figma Project](https://www.figma.com/design/l6NQvPvjsX1ytZKy3GD91s/DinDin?m=auto&t=IL8YwaB2ehsiPGnx-1)
+- dashboard: http://localhost:3000
+- transactions: http://localhost:3001
+
+### 5. Rodar a biblioteca de componentes
+
+```bash
+pnpm storybook:ui
+```
+
+O Storybook ficará disponível em:
+
+- http://localhost:6006
+
+## Scripts úteis
+
+No root do monorepo, você pode usar:
+
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm clean
+```
