@@ -14,6 +14,31 @@ O projeto tem como objetivo reunir:
 
 A estrutura principal é organizada da seguinte forma:
 
+```mermaid
+flowchart LR
+  User["Usuário"] --> Apps
+
+  subgraph Monorepo["Monorepo (pnpm + Turbo)"]
+    subgraph Apps["Apps"]
+        Dashboard["Dashboard\nporta 3000"]
+        Transactions["Transactions\nporta 3001"]
+    end
+    subgraph Packages["Packages"]
+        UI["ui\ndesign system"]
+        HTTP["http\ncliente HTTP centralizado"]
+        Form["form-control\nvalidações / helpers"]
+    end
+    Mock["Mock API\njson-server\nporta 4000"]
+  end
+
+  Apps --> Packages
+
+  Dashboard -. "rewrite de rotas\n/transactions -> app transactions" .-> Transactions
+  Dashboard -. "assets estáticos\n/transactions-static" .-> Transactions
+
+  Apps --> Mock
+```
+
 - apps/dashboard
   - aplicação principal do produto;
   - usa os pacotes compartilhados e redireciona rotas para o módulo de transações.
