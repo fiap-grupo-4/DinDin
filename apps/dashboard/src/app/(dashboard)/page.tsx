@@ -46,7 +46,7 @@ export default async function DashboardPage() {
       <div className="mt-6 lg:mt-0 lg:col-span-6 flex flex-col gap-3">
         <Container>
           <div className="flex items-center gap-3">
-            <ProfilePicture profileName="fulano de tal" />
+            <ProfilePicture profileName="fulano de tal" kind="primary" />
             <h1>Seja bem-vindo, Fulano de Tal</h1>
           </div>
           <p className="text-body-md lg:text-body-lg leading-body text-gray-700 my-4 md:my-7 lg:my-14">

@@ -1,7 +1,18 @@
+import { ProfilePicture } from '../ProfilePicture';
+
 export function Header() {
   return (
-    <header className="bg-brand-600 h-20 py-5 px-10">
+    <header className="bg-brand-600 h-20 py-5 px-4 md:px-10 flex items-center justify-between gap-3">
       <h1 className="text-heading-xl leading-heading text-gray-100">DinDin.</h1>
+      <div className="flex items-center gap-2">
+        <div className="flex flex-col items-end">
+          <h3 className="text-heading-sm text-brand-100">Fulano de Tal</h3>
+          {/* 2 opções de exibição para os dados da conta, uma para telas maiores e outra para menores */}
+          <p className="hidden md:block text-body-md text-brand-200 text-right">Agência 8127-3 | Conta 17383-4</p>
+          <p className="md:hidden text-body-md text-brand-200 text-right">Ag 8127-3 | Cc 17383-4</p>
+        </div>
+        <ProfilePicture profileName="Fulano de Tal" kind="secondary" />
+      </div>
     </header>
   );
 }
