@@ -7,7 +7,7 @@ const getCurrencyMask = (value: number): string => {
   }).format(value);
 };
 
-const getDateMask = (value: string): string => {
+const getDateMask = (value: string | Date): string => {
   return new Intl.DateTimeFormat('pt-BR').format(new Date(value));
 };
 
