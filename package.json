@@ -9,7 +9,8 @@
     "lint": "turbo lint",
     "clean": "turbo clean",
     "server": "npx json-server -p 4000 ./config/db/db.json",
-    "storybook:ui": "pnpm --filter @dindin/ui storybook"
+    "storybook:ui": "pnpm --filter @dindin/ui storybook",
+    "storybook:build": "pnpm --filter @dindin/ui build-storybook"
   },
   "packageManager": "pnpm@10.32.1",
   "devDependencies": {
