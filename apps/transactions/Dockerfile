@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS base
+FROM node:20-alpine AS base
 WORKDIR /app
 RUN corepack enable
 
@@ -14,17 +14,13 @@ RUN pnpm install --frozen-lockfile
 COPY --from=builder /app/out/full/ .
 RUN pnpm turbo build --filter=transactions
 
-FROM node:lts-alpine AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-RUN addgroup --system --gid 1001 nodejs \
-  && adduser --system --uid 1001 --ingroup nodejs nextjs
+COPY --from=installer /app/apps/transactions/.next/standalone ./
+COPY --from=installer /app/apps/transactions/.next/static ./apps/transactions/.next/static
 
-COPY --from=installer --chown=nextjs:nodejs /app/apps/transactions/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/transactions/.next/static ./apps/transactions/.next/static
-
-USER nextjs
 EXPOSE 3001
 CMD ["node", "apps/transactions/server.js"]
