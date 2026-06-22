@@ -13,6 +13,8 @@ interface TransactionModalProps {
   defaultValues?: Transaction;
   onClose: () => void;
   onSave: (transaction: Partial<Transaction>) => Promise<void>;
+  isSubmitting?: boolean;
+  isActionsDisabled?: boolean;
 }
 
 type TransactionFormValues = {
@@ -67,6 +69,8 @@ export function TransactionModal({
   onClose,
   onSave,
   defaultValues,
+  isSubmitting = false,
+  isActionsDisabled = false,
 }: TransactionModalProps) {
   const { form, isFieldValid, onChangeField, validateFields, setForm } =
     useForm<TransactionFormValues>(getInitialFormState(defaultValues));
@@ -82,11 +86,13 @@ export function TransactionModal({
   }, [isOpen, defaultValues, setForm]);
 
   const handleClose = () => {
+    if (isActionsDisabled) return;
     onClose();
   };
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isActionsDisabled) return;
     if (Object.values(form).some((field) => !field.isValid)) {
       validateFields(['date', 'description', 'transactionType', 'value']);
       return;
@@ -104,7 +110,7 @@ export function TransactionModal({
       return;
     }
 
-    onSave({
+    await onSave({
       id: defaultValues?.id,
       value: parsedValue,
       description: form.description.value,
@@ -159,8 +165,18 @@ export function TransactionModal({
           onChange={(e) => onChangeField('description', e.target.value)}
         />
         <div className="mt-2 flex w-full justify-end gap-4">
-          <Button kind="secondary" label="Cancelar" onClick={handleClose} />
-          <Button kind="primary" label="Salvar" type="submit" />
+          <Button
+            kind="secondary"
+            label="Cancelar"
+            onClick={handleClose}
+            disabled={isActionsDisabled}
+          />
+          <Button
+            kind="primary"
+            label={isSubmitting ? 'Salvando...' : 'Salvar'}
+            type="submit"
+            disabled={isActionsDisabled}
+          />
         </div>
       </form>
     </Modal>
