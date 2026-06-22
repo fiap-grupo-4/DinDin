@@ -1,17 +1,22 @@
 'use client';
 
-import { useState } from 'react';
 import { Icon } from '@dindin/ui';
+import { useSensitiveAmount } from '@/src/hooks/useSensitiveAmount';
 import { maskUtils } from '@/src/lib/utils';
+import SensitiveAmount from '../SensitiveAmount/SensitiveAmount';
 
 interface BalanceButtonProps {
   balance: number;
 }
 
 export function BalanceButton({ balance }: BalanceButtonProps) {
-  const [showBalance, setShowBalance] = useState(false);
+  const { showSensitiveAmount, toggleShowSensitiveAmount } =
+    useSensitiveAmount();
 
-  const handleShowBalance = () => setShowBalance(!showBalance);
+  const isNegative = balance < 0;
+  const valueClassName = `text-heading-xs lg:text-heading-lg lg:leading-heading ${
+    isNegative ? 'text-danger-400' : ''
+  }`;
 
   return (
     <>
@@ -21,21 +26,21 @@ export function BalanceButton({ balance }: BalanceButtonProps) {
       <button
         type="button"
         className="flex items-center gap-2 text-brand-600 h-6 lg:h-9"
-        onClick={handleShowBalance}
+        onClick={toggleShowSensitiveAmount}
+        aria-pressed={showSensitiveAmount}
+        aria-label={
+          showSensitiveAmount ? 'Ocultar saldo' : 'Mostrar saldo'
+        }
       >
         <Icon
-          name={showBalance ? 'EyeLine' : 'EyeCloseLine'}
-          className={`${showBalance && balance < 0 ? 'text-danger-400' : ''}`}
+          name={showSensitiveAmount ? 'EyeLine' : 'EyeCloseLine'}
+          className={showSensitiveAmount && isNegative ? 'text-danger-400' : ''}
         />
-        {showBalance ? (
-          <span
-            className={`text-heading-xs lg:text-heading-lg lg:leading-heading ${balance < 0 ? 'text-danger-400' : ''}`}
-          >
+        <SensitiveAmount>
+          <span className={valueClassName}>
             {maskUtils.getCurrencyMask(balance)}
           </span>
-        ) : (
-          <span className="h-1 block w-[94px] bg-brand-600 rounded" />
-        )}
+        </SensitiveAmount>
       </button>
     </>
   );
