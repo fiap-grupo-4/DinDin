@@ -36,9 +36,19 @@ const parseCurrencyString = (value: string): number | null => {
   return Number.isNaN(parsed) ? null : parsed;
 };
 
+const formatCurrencyInput = (value: string): string => {
+  const digits = value.replace(/\D/g, '');
+
+  if (!digits) return '';
+
+  const numberValue = Number(digits) / 100;
+  return getCurrencyMask(numberValue);
+};
+
 export const maskUtils = {
   getCurrencyMask,
   getDateMask,
   parseDateString,
   parseCurrencyString,
+  formatCurrencyInput,
 };

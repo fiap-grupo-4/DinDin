@@ -146,7 +146,9 @@ export function TransactionModal({
             required
             iconLeft="MoneyDollarCircleLine"
             errorMessage={form.value.errorMessage}
-            onChange={(e) => onChangeField('value', e.target.value)}
+            onChange={(e) =>
+              onChangeField('value', maskUtils.formatCurrencyInput(e.target.value))
+            }
           />
           <DateInput
             value={form.date.value}

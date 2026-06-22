@@ -23,6 +23,7 @@ export default function TransactionsContent({
       <TransactionFilters
         onFilter={setActiveFilters}
         onReset={() => setActiveFilters(null)}
+        hasActiveFilters={activeFilters !== null}
       />
 
       <div className="h-100 overflow-auto">

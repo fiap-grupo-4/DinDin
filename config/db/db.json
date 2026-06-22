@@ -125,11 +125,11 @@
       "id": "UeBxttsed5w"
     },
     {
-      "value": 50,
-      "description": "dormindo",
-      "transactionType": "expense",
-      "createdAt": "2026-06-23T04:00:00.000Z",
-      "id": "-b8MQmXcq7A"
+      "value": 30,
+      "description": "teste",
+      "transactionType": "income",
+      "createdAt": "2026-06-22T04:00:00.000Z",
+      "id": "zRvJZsbFoww"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

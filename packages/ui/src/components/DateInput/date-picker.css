@@ -1,0 +1,50 @@
+.dindin-date-picker.rdp-root {
+  --rdp-accent-color: var(--brand-600);
+  --rdp-accent-background-color: var(--brand-100);
+  --rdp-today-color: var(--brand-600);
+}
+
+.dindin-date-picker .rdp-day_button {
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.dindin-date-picker .rdp-day_button:not(:disabled):not([aria-disabled="true"]):hover {
+  background-color: var(--brand-100);
+  border-color: var(--brand-300);
+  color: var(--brand-700);
+}
+
+.dindin-date-picker .rdp-selected .rdp-day_button:not(:disabled):not([aria-disabled="true"]):hover {
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+  color: var(--brand-100);
+}
+
+.dindin-date-picker .rdp-chevron {
+  fill: var(--brand-600);
+}
+
+.dindin-date-picker .rdp-today:not(.rdp-outside) .rdp-day_button {
+  color: var(--brand-600);
+  font-weight: 600;
+}
+
+.dindin-date-picker .rdp-selected .rdp-day_button {
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+  color: var(--brand-100);
+}
+
+.dindin-date-picker .rdp-selected.rdp-today .rdp-day_button {
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+  color: var(--brand-100);
+}
+
+.dindin-date-picker .rdp-day_button:focus-visible {
+  outline: 2px solid var(--brand-400);
+  outline-offset: 2px;
+}

@@ -4,21 +4,10 @@ import {
   SummaryCardDetails,
 } from './components';
 import { Heading, ProfilePicture, Container, Link } from '@dindin/ui';
-import { transactionService } from '@/src/services/transactions';
+import { getTransactionsAction } from './actions';
 
 export default async function DashboardPage() {
-  const getTransactions = async () => {
-    try {
-      const transactions =
-        await transactionService.getTransactions('?_sort=-createdAt');
-      return transactions;
-    } catch (error) {
-      console.error('Error on getting Transactions', error);
-      return [];
-    }
-  };
-
-  const transactions = await getTransactions();
+  const transactions = await getTransactionsAction();
 
   const { totalIncomes, totalExpenses } = transactions.reduce(
     (prev, curr) => {
