@@ -1,9 +1,9 @@
-import { SensitiveAmountProvider } from '@/src/context';
+import { StoreProvider } from '@/src/store';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  return <SensitiveAmountProvider>{children}</SensitiveAmountProvider>;
+  return <StoreProvider>{children}</StoreProvider>;
 }

@@ -1,4 +1,4 @@
-import { TransactionActionsProvider } from '@/src/context';
+import { StoreProvider } from '@/src/store';
 
 interface TransactionsLayoutProps {
   children: React.ReactNode;
@@ -7,5 +7,5 @@ interface TransactionsLayoutProps {
 export default function TransactionsLayout({
   children,
 }: TransactionsLayoutProps) {
-  return <TransactionActionsProvider>{children}</TransactionActionsProvider>;
+  return <StoreProvider>{children}</StoreProvider>;
 }

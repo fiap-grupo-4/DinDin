@@ -1,19 +1,19 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@dindin/ui';
 import { Transaction } from '@/types/transactions.types';
 import { TransactionModal } from '@/src/components/TransactionModal';
 import { createTransactionAction } from '@/src/app/transactions/actions';
 import { TRANSACTION_TOAST_MESSAGES } from '@/src/app/transactions/types';
-import { useTransactionActions } from '@/src/context';
+import { useTransactionActions } from '@/src/hooks/useTransactionActions';
+import { useTransactionModal } from '@/src/hooks/useTransactionModal';
 
 const ACTION_KEY = 'create' as const;
 
 export default function CreateTransaction() {
   const { isActionDisabled, isActionLoading, runAction } =
     useTransactionActions();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, open, close } = useTransactionModal(ACTION_KEY);
 
   const handleSave = async (data: Partial<Transaction>) => {
     await runAction({
@@ -21,13 +21,8 @@ export default function CreateTransaction() {
       action: () => createTransactionAction(data),
       successMessage: TRANSACTION_TOAST_MESSAGES.create.success,
       errorMessage: TRANSACTION_TOAST_MESSAGES.create.error,
-      onSuccess: () => setIsOpen(false),
+      onSuccess: close,
     });
-  };
-
-  const handleOpen = () => {
-    if (isActionDisabled) return;
-    setIsOpen(true);
   };
 
   return (
@@ -36,14 +31,14 @@ export default function CreateTransaction() {
         label="Nova Transação"
         size="sm"
         icon="AddLine"
-        onClick={handleOpen}
+        onClick={open}
         disabled={isActionDisabled}
         className="w-full md:w-fit"
       />
       <TransactionModal
         key="create-new"
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         onSave={handleSave}
         isSubmitting={isActionLoading(ACTION_KEY)}
         isActionsDisabled={isActionDisabled}
