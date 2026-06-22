@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Icon } from '@dindin/ui';
 import { Transaction } from '@/types/transactions.types';
 import { DeleteTransactionModal } from '@/src/components/DeleteTransactionModal';
@@ -9,7 +8,8 @@ import {
   TRANSACTION_TOAST_MESSAGES,
   getDeleteActionKey,
 } from '@/src/app/transactions/types';
-import { useTransactionActions } from '@/src/context';
+import { useTransactionActions } from '@/src/hooks/useTransactionActions';
+import { useTransactionModal } from '@/src/hooks/useTransactionModal';
 
 interface DeleteTransactionProps {
   transaction: Transaction;
@@ -20,8 +20,8 @@ export default function DeleteTransaction({
 }: DeleteTransactionProps) {
   const { isActionDisabled, isActionLoading, runAction } =
     useTransactionActions();
-  const [isOpen, setIsOpen] = useState(false);
   const actionKey = getDeleteActionKey(transaction.id);
+  const { isOpen, open, close } = useTransactionModal(actionKey);
   const isSubmitting = isActionLoading(actionKey);
 
   const handleConfirm = async () => {
@@ -30,20 +30,15 @@ export default function DeleteTransaction({
       action: () => deleteTransactionAction(transaction.id),
       successMessage: TRANSACTION_TOAST_MESSAGES.delete.success,
       errorMessage: TRANSACTION_TOAST_MESSAGES.delete.error,
-      onSuccess: () => setIsOpen(false),
+      onSuccess: close,
     });
-  };
-
-  const handleOpen = () => {
-    if (isActionDisabled) return;
-    setIsOpen(true);
   };
 
   return (
     <>
       <button
         type="button"
-        onClick={handleOpen}
+        onClick={open}
         disabled={isActionDisabled}
         aria-label="Excluir transação"
         aria-busy={isSubmitting}
@@ -58,7 +53,7 @@ export default function DeleteTransaction({
       <DeleteTransactionModal
         isOpen={isOpen}
         description={transaction.description}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         onConfirm={handleConfirm}
         isSubmitting={isSubmitting}
         isActionsDisabled={isActionDisabled}
