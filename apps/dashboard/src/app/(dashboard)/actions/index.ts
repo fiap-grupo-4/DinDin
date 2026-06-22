@@ -1,1 +1,4 @@
-export { getTransactionsAction } from './getTransactions.action';
+export {
+  getTransactionsAction,
+  type GetTransactionsResult,
+} from './getTransactions.action';

@@ -18,6 +18,8 @@ import type {
   TransactionActionKey,
 } from '@/src/app/transactions/types';
 
+const LOADING_CLEAR_FALLBACK_MS = 8000;
+
 interface TransactionActionsContextValue {
   isPending: boolean;
   isLoading: boolean;
@@ -39,15 +41,48 @@ export default function TransactionActionsProvider({
   const [activeActionKey, setActiveActionKey] =
     useState<TransactionActionKey | null>(null);
   const isRefreshingRef = useRef(false);
+  const loadingClearFallbackRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  const clearLoadingFallback = useCallback(() => {
+    if (loadingClearFallbackRef.current) {
+      clearTimeout(loadingClearFallbackRef.current);
+      loadingClearFallbackRef.current = null;
+    }
+  }, []);
+
+  const clearActiveAction = useCallback(() => {
+    isRefreshingRef.current = false;
+    clearLoadingFallback();
+    setActiveActionKey(null);
+  }, [clearLoadingFallback]);
+
+  const scheduleLoadingClearFallback = useCallback(
+    (actionKey: TransactionActionKey) => {
+      clearLoadingFallback();
+      loadingClearFallbackRef.current = setTimeout(() => {
+        setActiveActionKey((current) =>
+          current === actionKey ? null : current
+        );
+        isRefreshingRef.current = false;
+        loadingClearFallbackRef.current = null;
+      }, LOADING_CLEAR_FALLBACK_MS);
+    },
+    [clearLoadingFallback]
+  );
 
   const isLoading = activeActionKey !== null || isPending;
 
   useEffect(() => {
     if (!isPending && isRefreshingRef.current) {
-      isRefreshingRef.current = false;
-      setActiveActionKey(null);
+      clearActiveAction();
     }
-  }, [isPending]);
+  }, [isPending, clearActiveAction]);
+
+  useEffect(() => {
+    return () => clearLoadingFallback();
+  }, [clearLoadingFallback]);
 
   const runAction = useCallback(
     async ({
@@ -71,6 +106,7 @@ export default function TransactionActionsProvider({
         toast.success(successMessage);
         onSuccess?.();
         isRefreshingRef.current = true;
+        scheduleLoadingClearFallback(actionKey);
 
         startTransition(() => {
           router.refresh();
@@ -80,7 +116,7 @@ export default function TransactionActionsProvider({
         setActiveActionKey(null);
       }
     },
-    [router]
+    [router, scheduleLoadingClearFallback]
   );
 
   const value = useMemo(

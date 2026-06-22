@@ -3,8 +3,10 @@ export type TransactionActionKey =
   | `edit-${string}`
   | `delete-${string}`;
 
+import type { Transaction } from '@/types/transactions.types';
+
 export type TransactionActionResult =
-  | { success: true }
+  | { success: true; data?: Transaction }
   | { success: false; error?: string };
 
 export interface RunTransactionActionParams {

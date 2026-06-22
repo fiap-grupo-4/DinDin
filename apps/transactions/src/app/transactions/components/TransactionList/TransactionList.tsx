@@ -7,6 +7,7 @@ import { DeleteTransaction } from '../DeleteTransaction';
 
 interface TransactionListProps {
   transactions: Transaction[];
+  hasActiveFilters?: boolean;
 }
 
 const valueStyles: Record<TransactionType, { label: string; style: string }> = {
@@ -14,7 +15,10 @@ const valueStyles: Record<TransactionType, { label: string; style: string }> = {
   expense: { label: '-', style: 'text-danger-400' },
 };
 
-export default function TransactionList({ transactions }: TransactionListProps) {
+export default function TransactionList({
+  transactions,
+  hasActiveFilters = false,
+}: TransactionListProps) {
   return (
     <>
       {transactions.length > 0 ? (
@@ -52,7 +56,11 @@ export default function TransactionList({ transactions }: TransactionListProps) 
           })}
         </ul>
       ) : (
-        <p className="text-center mb-8">Nenhuma transação encontrada.</p>
+        <p className="text-center mb-8">
+          {hasActiveFilters
+            ? 'Nenhum resultado para os filtros aplicados.'
+            : 'Nenhuma transação encontrada.'}
+        </p>
       )}
     </>
   );

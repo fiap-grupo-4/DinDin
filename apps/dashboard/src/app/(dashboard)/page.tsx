@@ -7,7 +7,33 @@ import { Heading, ProfilePicture, Container, Link } from '@dindin/ui';
 import { getTransactionsAction } from './actions';
 
 export default async function DashboardPage() {
-  const transactions = await getTransactionsAction();
+  const result = await getTransactionsAction();
+
+  if (!result.success) {
+    return (
+      <>
+        <div className="mt-6 lg:mt-0 lg:col-span-6 flex flex-col gap-3">
+          <Container>
+            <div className="flex items-center gap-3">
+              <ProfilePicture profileName="fulano de tal" />
+              <h1>Seja bem-vindo, Fulano de Tal</h1>
+            </div>
+            <p className="text-body-md lg:text-body-lg leading-body text-gray-700 my-4 md:my-7 lg:my-14">
+              Com o DinDin, você acompanha seu dinheiro de forma simples e
+              organizada. Gerencie suas transações, visualize seu saldo em tempo
+              real e tenha mais controle sobre sua vida financeira — tudo em um
+              só lugar.
+            </p>
+          </Container>
+        </div>
+        <Container className="mb-6 lg:mb-0 w-full lg:col-span-4">
+          <p className="text-center text-danger-400">{result.error}</p>
+        </Container>
+      </>
+    );
+  }
+
+  const transactions = result.data;
 
   const { totalIncomes, totalExpenses } = transactions.reduce(
     (prev, curr) => {

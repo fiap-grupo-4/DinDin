@@ -27,7 +27,10 @@ export default function TransactionsContent({
       />
 
       <div className="h-100 overflow-auto">
-        <TransactionList transactions={filteredTransactions} />
+        <TransactionList
+          transactions={filteredTransactions}
+          hasActiveFilters={activeFilters !== null}
+        />
       </div>
     </>
   );

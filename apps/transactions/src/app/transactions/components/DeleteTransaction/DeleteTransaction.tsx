@@ -45,6 +45,7 @@ export default function DeleteTransaction({
         type="button"
         onClick={handleOpen}
         disabled={isActionDisabled}
+        aria-label="Excluir transação"
         aria-busy={isSubmitting}
         className="disabled:cursor-not-allowed disabled:opacity-50"
       >

@@ -8,7 +8,7 @@ const getTransactions = async (queryOptions = ''): Promise<Transaction[]> => {
   return res;
 };
 const getTransactionById = async (id: string): Promise<Transaction> => {
-  const res = await httpClient.get<Transaction>(`/transactions${id}`);
+  const res = await httpClient.get<Transaction>(`/transactions/${id}`);
   return res;
 };
 

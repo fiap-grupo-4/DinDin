@@ -43,6 +43,7 @@ export default function EditTransaction({ transaction }: EditTransactionProps) {
         type="button"
         onClick={handleOpen}
         disabled={isActionDisabled}
+        aria-label="Editar transação"
         aria-busy={isSubmitting}
         className="disabled:cursor-not-allowed disabled:opacity-50"
       >
