@@ -1,11 +1,12 @@
+'use client';
+
 import { Transaction, TransactionType } from '@/types/transactions.types';
 import { maskUtils } from '@/src/lib/utils';
-import { Icon } from '@dindin/ui';
+import { EditTransaction } from '../EditTransaction';
+import { DeleteTransaction } from '../DeleteTransaction';
 
 interface TransactionListProps {
   transactions: Transaction[];
-  onEdit: (value: string) => void;
-  onDelete: (value: string) => void;
 }
 
 const valueStyles: Record<TransactionType, { label: string; style: string }> = {
@@ -13,17 +14,16 @@ const valueStyles: Record<TransactionType, { label: string; style: string }> = {
   expense: { label: '-', style: 'text-danger-400' },
 };
 
-export function TransactionList({
-  transactions,
-  onEdit,
-  onDelete,
-}: TransactionListProps) {
+export default function TransactionList({ transactions }: TransactionListProps) {
   return (
     <>
       {transactions.length > 0 ? (
         <ul className="flex flex-col gap-5">
-          {transactions.map(
-            ({ id, description, value, transactionType, createdAt }) => (
+          {transactions.map((transaction) => {
+            const { id, description, value, transactionType, createdAt } =
+              transaction;
+
+            return (
               <li
                 key={id}
                 className="bg-gray-200 min-h-16 px-4 py-2 rounded-md flex items-stretch justify-between gap-3"
@@ -43,25 +43,13 @@ export function TransactionList({
                   <p className="text-body-md text-gray-600">
                     {maskUtils.getDateMask(createdAt)}
                   </p>
-                  <span className="w-px bg-gray-400 self-stretch"></span>
-                  <button type="button" onClick={() => onEdit(id)}>
-                    <Icon
-                      name="PencilLine"
-                      size={20}
-                      className="text-gray-700 hover:text-gray-800"
-                    />
-                  </button>
-                  <button type="button" onClick={() => onDelete(id)}>
-                    <Icon
-                      name="DeleteBin6Line"
-                      size={20}
-                      className="text-danger-400 hover:text-danger-600"
-                    />
-                  </button>
+                  <span className="w-px bg-gray-400 self-stretch" />
+                  <EditTransaction transaction={transaction} />
+                  <DeleteTransaction transaction={transaction} />
                 </div>
               </li>
-            )
-          )}
+            );
+          })}
         </ul>
       ) : (
         <p className="text-center mb-8">Nenhuma transação encontrada.</p>

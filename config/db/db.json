@@ -118,39 +118,18 @@
       "id": "0H3lAZNp96U"
     },
     {
-      "value": null,
-      "description": "Serviço",
-      "transactionType": "income",
-      "createdAt": "2026-05-04T03:00:00.000Z",
-      "id": "dGZkjCWtGJA"
-    },
-    {
-      "value": 20,
-      "description": "Mercado",
-      "transactionType": "expense",
-      "createdAt": "2026-05-04T03:00:00.000Z",
-      "id": "emc9z3PrjYw"
-    },
-    {
-      "value": 22,
+      "value": 23,
       "description": "asd",
       "transactionType": "income",
-      "createdAt": "2026-05-04T03:00:00.000Z",
+      "createdAt": "2026-05-03T04:00:00.000Z",
       "id": "UeBxttsed5w"
     },
     {
-      "value": 50,
-      "description": "",
-      "transactionType": "income",
-      "createdAt": "2026-05-05T03:00:00.000Z",
-      "id": "hR7B_9SOle8"
-    },
-    {
-      "value": 30,
-      "description": "Ganhei",
-      "transactionType": "income",
-      "createdAt": "2026-06-12T03:00:00.000Z",
-      "id": "q9wWGb6DdbY"
+      "value": 300,
+      "description": "mercado",
+      "transactionType": "expense",
+      "createdAt": "2026-06-22T04:00:00.000Z",
+      "id": "2cdHPSlP28s"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

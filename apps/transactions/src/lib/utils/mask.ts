@@ -22,8 +22,23 @@ const parseDateString = (value: string): Date | null => {
   return new Date(year, month - 1, day);
 };
 
+const parseCurrencyString = (value: string): number | null => {
+  const normalized = value
+    .trim()
+    .replace(/\s/g, '')
+    .replace(/R\$/gi, '')
+    .replace(/\./g, '')
+    .replace(',', '.');
+
+  if (normalized === '') return null;
+
+  const parsed = Number(normalized);
+  return Number.isNaN(parsed) ? null : parsed;
+};
+
 export const maskUtils = {
   getCurrencyMask,
   getDateMask,
   parseDateString,
+  parseCurrencyString,
 };

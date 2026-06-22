@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { TRANSACTION_TYPES } from '@/src/lib/constants/transaction';
 import { maskUtils } from '@/src/lib/utils';
 import { Transaction, TransactionType } from '@/types/transactions.types';
@@ -67,11 +68,20 @@ export function TransactionModal({
   onSave,
   defaultValues,
 }: TransactionModalProps) {
-  const { form, isFieldValid, onChangeField, validateFields, resetForm } =
+  const { form, isFieldValid, onChangeField, validateFields, setForm } =
     useForm<TransactionFormValues>(getInitialFormState(defaultValues));
 
+  const wasOpenRef = useRef(false);
+
+  useEffect(() => {
+    if (isOpen && !wasOpenRef.current) {
+      setForm(getInitialFormState(defaultValues));
+    }
+
+    wasOpenRef.current = isOpen;
+  }, [isOpen, defaultValues, setForm]);
+
   const handleClose = () => {
-    resetForm();
     onClose();
   };
 
@@ -88,14 +98,19 @@ export function TransactionModal({
       return;
     }
 
+    const parsedValue = maskUtils.parseCurrencyString(form.value.value);
+    if (parsedValue == null) {
+      validateFields('value');
+      return;
+    }
+
     onSave({
       id: defaultValues?.id,
-      value: Number(form.value.value),
+      value: parsedValue,
       description: form.description.value,
       transactionType: form.transactionType.value as TransactionType,
       createdAt,
     });
-    resetForm();
   };
 
   return (
