@@ -1,20 +1,9 @@
-import { transactionService } from '@/src/services/transactions';
+import { getTransactionsAction } from './actions';
 import { Transactions } from './components/Transactions';
 import { Container, Link } from '@dindin/ui';
 
 export default async function TransactionsPage() {
-  const getTransactions = async () => {
-    try {
-      const transactions =
-        await transactionService.getTransactions('?_sort=-createdAt');
-      return transactions;
-    } catch (error) {
-      console.error('Error on getting Transactions', error);
-      return [];
-    }
-  };
-
-  const transactions = await getTransactions();
+  const result = await getTransactionsAction();
 
   return (
     <div className="w-full md:col-span-8 md:col-start-2">
@@ -25,7 +14,11 @@ export default async function TransactionsPage() {
         className="w-fit mt-8 mb-4"
       />
       <Container className="mb-6">
-        <Transactions transactions={transactions} />
+        {!result.success ? (
+          <p className="text-center text-danger-400 mb-8">{result.error}</p>
+        ) : (
+          <Transactions transactions={result.data} />
+        )}
       </Container>
     </div>
   );

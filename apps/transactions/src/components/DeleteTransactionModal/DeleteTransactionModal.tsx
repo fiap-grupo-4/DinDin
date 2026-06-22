@@ -6,7 +6,9 @@ interface DeleteTransactionModalProps {
   isOpen: boolean;
   description?: string;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: () => Promise<void>;
+  isSubmitting?: boolean;
+  isActionsDisabled?: boolean;
 }
 
 export function DeleteTransactionModal({
@@ -14,12 +16,24 @@ export function DeleteTransactionModal({
   description,
   onClose,
   onConfirm,
+  isSubmitting = false,
+  isActionsDisabled = false,
 }: DeleteTransactionModalProps) {
+  const handleClose = () => {
+    if (isActionsDisabled) return;
+    onClose();
+  };
+
+  const handleConfirm = async () => {
+    if (isActionsDisabled) return;
+    await onConfirm();
+  };
+
   return (
     <Modal
       title="Confirmar Exclusão"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       kind="danger"
       maxWidth="sm"
     >
@@ -30,8 +44,18 @@ export function DeleteTransactionModal({
             : 'Tem certeza que deseja excluir esta transação?'}
         </p>
         <div className="flex justify-center gap-4">
-          <Button kind="secondary" label="Cancelar" onClick={onClose} />
-          <Button kind="danger" label="Excluir" onClick={onConfirm} />
+          <Button
+            kind="secondary"
+            label="Cancelar"
+            onClick={handleClose}
+            disabled={isActionsDisabled}
+          />
+          <Button
+            kind="danger"
+            label={isSubmitting ? 'Excluindo...' : 'Excluir'}
+            onClick={handleConfirm}
+            disabled={isActionsDisabled}
+          />
         </div>
       </div>
     </Modal>
