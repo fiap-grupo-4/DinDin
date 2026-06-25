@@ -2,7 +2,7 @@ import { ProfilePicture } from '../ProfilePicture';
 
 export function Header() {
   return (
-    <header className="bg-brand-600 h-20 py-5 px-4 md:px-10 flex items-center justify-between gap-3">
+    <header className="bg-brand-600 h-20 py-5 px-4 md:px-10 flex items-center justify-between gap-3 z-20">
       <h1 className="text-heading-xl leading-heading text-gray-100">DinDin.</h1>
       <div className="flex items-center gap-2">
         <div className="flex flex-col items-end">

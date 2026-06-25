@@ -1,5 +1,8 @@
-import { Footer } from "../Footer";
+'use client';
+
+import { useState } from "react";
 import { Header } from "../Header";
+import { Navbar } from "../Navbar";
 
 interface BaseLayoutProps {
   children: React.ReactNode;
@@ -7,6 +10,8 @@ interface BaseLayoutProps {
 }
 
 export function BaseLayout({ children, className = "" }: BaseLayoutProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <html
       lang="pt-BR"
@@ -14,10 +19,11 @@ export function BaseLayout({ children, className = "" }: BaseLayoutProps) {
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        <main className="flex-1 items-center flex flex-col lg:grid lg:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto">
+        <main className="flex-1 items-center flex flex-col lg:grid lg:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto transition-margin duration-300 pl-20">
+          {sidebarOpen && <div className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>}
           {children}
         </main>
-        <Footer />
+        <Navbar isOpen={sidebarOpen} onToggle={() => setSidebarOpen((prev) => !prev)} />
       </body>
     </html>
   );
