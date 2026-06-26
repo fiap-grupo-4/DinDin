@@ -18,8 +18,8 @@ export function BaseLayout({ children, className = "" }: BaseLayoutProps) {
       className={`${className} h-full antialiased flex flex-col`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="flex-1 items-center flex flex-col lg:grid lg:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto transition-margin duration-300 pl-20">
+        <Header onToggle={() => setSidebarOpen((prev) => !prev)} />
+        <main className="flex-1 items-center flex flex-col lg:grid lg:grid-cols-10 gap-3 px-6 w-full max-w-360 mx-auto transition-margin duration-200 sm:pl-20">
           {sidebarOpen && <div className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>}
           {children}
         </main>
