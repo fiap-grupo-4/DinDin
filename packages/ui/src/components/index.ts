@@ -1,7 +1,6 @@
 export * from "./Button";
 export * from "./Container";
 export * from "./DateInput";
-export * from "./Footer";
 export * from "./Header";
 export * from "./Heading";
 export * from "./Icon";

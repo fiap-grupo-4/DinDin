@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { DayPicker } from "react-day-picker";
+import { ptBR } from "react-day-picker/locale";
 import { useEffect, useRef } from "react";
 import "react-day-picker/dist/style.css";
+import "./date-picker.css";
 
 import { Input } from "../Input";
 import { validationUtils } from "./validation";
@@ -74,8 +76,17 @@ export function DateInput({ value, onChange, ...inputProps }: DateInputProps) {
         />
       </div>
       {open && (
-        <div className="absolute z-10 mt-2 bg-white border-2 border-gray-400 p-3 rounded-md text-gray-800 shadow">
+        <div className="absolute z-10 mt-2 rounded-md border-2 border-gray-400 bg-white p-3 text-gray-800 shadow">
           <DayPicker
+            className="dindin-date-picker"
+            locale={ptBR}
+            style={
+              {
+                "--rdp-accent-color": "var(--brand-600)",
+                "--rdp-accent-background-color": "var(--brand-100)",
+                "--rdp-today-color": "var(--brand-600)",
+              } as CSSProperties
+            }
             mode="single"
             selected={date}
             onSelect={(selected) => {

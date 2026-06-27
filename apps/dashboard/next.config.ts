@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 const transactionsAppUrl = process.env.TRANSACTIONS_APP_URL;
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   async rewrites() {
     return [
       {

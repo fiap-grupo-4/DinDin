@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import { BaseLayout } from '@dindin/ui';
+import { AppToaster } from '@/src/components/AppToaster';
 import '@dindin/ui/styles/index.css';
 
 const lato = Lato({
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <BaseLayout className={lato.variable}>{children}</BaseLayout>;
+  return (
+    <BaseLayout className={lato.variable}>
+      {children}
+      <AppToaster />
+    </BaseLayout>
+  );
 }

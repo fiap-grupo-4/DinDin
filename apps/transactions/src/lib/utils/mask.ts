@@ -7,7 +7,7 @@ const getCurrencyMask = (value: number): string => {
   }).format(value);
 };
 
-const getDateMask = (value: string): string => {
+const getDateMask = (value: string | Date): string => {
   return new Intl.DateTimeFormat('pt-BR').format(new Date(value));
 };
 
@@ -22,8 +22,33 @@ const parseDateString = (value: string): Date | null => {
   return new Date(year, month - 1, day);
 };
 
+const parseCurrencyString = (value: string): number | null => {
+  const normalized = value
+    .trim()
+    .replace(/\s/g, '')
+    .replace(/R\$/gi, '')
+    .replace(/\./g, '')
+    .replace(',', '.');
+
+  if (normalized === '') return null;
+
+  const parsed = Number(normalized);
+  return Number.isNaN(parsed) ? null : parsed;
+};
+
+const formatCurrencyInput = (value: string): string => {
+  const digits = value.replace(/\D/g, '');
+
+  if (!digits) return '';
+
+  const numberValue = Number(digits) / 100;
+  return getCurrencyMask(numberValue);
+};
+
 export const maskUtils = {
   getCurrencyMask,
   getDateMask,
   parseDateString,
+  parseCurrencyString,
+  formatCurrencyInput,
 };
