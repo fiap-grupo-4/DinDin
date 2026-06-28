@@ -22,7 +22,16 @@ export default function Transactions({ data }: TransactionsProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [transactions, setTransactions] = useState<TransactionsResults>(data);
+  const [clientTransactions, setClientTransactions] =
+    useState<TransactionsResults | null>(null);
+  const [prevData, setPrevData] = useState<TransactionsResults>(data);
+
+  if (data !== prevData) {
+    setPrevData(data);
+    setClientTransactions(null);
+  }
+
+  const transactions = clientTransactions ?? data;
 
   const getTransactions = async (queryParams?: string): Promise<void> => {
     setLoading(true);
@@ -30,7 +39,7 @@ export default function Transactions({ data }: TransactionsProps) {
     setLoading(false);
     if (!result.success) return;
 
-    setTransactions(result.data);
+    setClientTransactions(result.data);
     setCurrentPage(result.data.first + (result.data.prev ?? 0));
   };
 
