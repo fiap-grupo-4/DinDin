@@ -19,15 +19,14 @@ export function Navbar({ isOpen, onToggle, selectedRoute }: NavbarProps) {
         w-full sm:h-screen ${isOpen ? "h-auto sm:w-50" : "h-0 sm:w-15"}`}
     >
       <div className="flex h-full flex-col justify-between pt-25 py-4 px-2">
-        <Button
-          label={isOpen ? "Fechar" : ""}
-          size="sm"
-          icon={isOpen ? "MenuFoldLine" : "MenuUnfoldLine"}
-          className="px-2! hidden sm:flex"
-          onClick={onToggle}
-        />
-
         <div className="space-y-6">
+          <Button
+            label={isOpen ? "Fechar" : ""}
+            size="sm"
+            icon={isOpen ? "MenuFoldLine" : "MenuUnfoldLine"}
+            className="px-2! hidden sm:flex"
+            onClick={onToggle}
+          />
           <nav aria-label="Principal">
             <a
               key="Dashboard"
