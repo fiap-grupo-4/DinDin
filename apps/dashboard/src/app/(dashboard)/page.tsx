@@ -92,7 +92,7 @@ export default async function DashboardPage() {
           </div>
         </Container>
       </div>
-      <Container className="mb-6 lg:mb-0 w-full lg:col-span-4">
+      <Container className="mb-6 lg:mb-0 w-full lg:col-span-4 h-fit">
         <Heading title="Transações Recentes" className="mb-11" />
         <RecentsTransactionsList transactions={transactions} />
         <Link
