@@ -1,8 +1,11 @@
 import { Transaction } from '@/types/transactions.types';
 import { httpClient } from '../http';
+import { TransactionsResults } from '@/src/app/transactions/actions/getTransactions.action';
 
-const getTransactions = async (queryOptions = ''): Promise<Transaction[]> => {
-  const res = await httpClient.get<Transaction[]>(
+const getTransactions = async (
+  queryOptions = ''
+): Promise<TransactionsResults> => {
+  const res = await httpClient.get<TransactionsResults>(
     `/transactions${queryOptions}`
   );
   return res;

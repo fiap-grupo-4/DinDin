@@ -4,12 +4,10 @@ import { Icon } from '@dindin/ui';
 import { Transaction } from '@/types/transactions.types';
 import { TransactionModal } from '@/src/components/TransactionModal';
 import { editTransactionAction } from '@/src/app/transactions/actions';
-import {
-  TRANSACTION_TOAST_MESSAGES,
-  getEditActionKey,
-} from '@/src/app/transactions/types';
+import { TransactionActionKey } from '@/src/app/transactions/types';
 import { useTransactionActions } from '@/src/hooks/useTransactionActions';
 import { useTransactionModal } from '@/src/hooks/useTransactionModal';
+import { TRANSACTION_TOAST_MESSAGES } from '@/src/lib/constants/transaction';
 
 interface EditTransactionProps {
   transaction: Transaction;
@@ -18,7 +16,8 @@ interface EditTransactionProps {
 export default function EditTransaction({ transaction }: EditTransactionProps) {
   const { isActionDisabled, isActionLoading, runAction } =
     useTransactionActions();
-  const actionKey = getEditActionKey(transaction.id);
+  const actionKey: TransactionActionKey = `edit-${transaction.id}`;
+
   const { isOpen, open, close } = useTransactionModal(actionKey);
   const isSubmitting = isActionLoading(actionKey);
 

@@ -4,9 +4,9 @@ import { Button } from '@dindin/ui';
 import { Transaction } from '@/types/transactions.types';
 import { TransactionModal } from '@/src/components/TransactionModal';
 import { createTransactionAction } from '@/src/app/transactions/actions';
-import { TRANSACTION_TOAST_MESSAGES } from '@/src/app/transactions/types';
 import { useTransactionActions } from '@/src/hooks/useTransactionActions';
 import { useTransactionModal } from '@/src/hooks/useTransactionModal';
+import { TRANSACTION_TOAST_MESSAGES } from '@/src/lib/constants/transaction';
 
 const ACTION_KEY = 'create' as const;
 

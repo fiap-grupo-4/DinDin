@@ -4,12 +4,10 @@ import { Icon } from '@dindin/ui';
 import { Transaction } from '@/types/transactions.types';
 import { DeleteTransactionModal } from '@/src/components/DeleteTransactionModal';
 import { deleteTransactionAction } from '@/src/app/transactions/actions';
-import {
-  TRANSACTION_TOAST_MESSAGES,
-  getDeleteActionKey,
-} from '@/src/app/transactions/types';
+import { TransactionActionKey } from '@/src/app/transactions/types';
 import { useTransactionActions } from '@/src/hooks/useTransactionActions';
 import { useTransactionModal } from '@/src/hooks/useTransactionModal';
+import { TRANSACTION_TOAST_MESSAGES } from '@/src/lib/constants/transaction';
 
 interface DeleteTransactionProps {
   transaction: Transaction;
@@ -18,9 +16,11 @@ interface DeleteTransactionProps {
 export default function DeleteTransaction({
   transaction,
 }: DeleteTransactionProps) {
+  const actionKey: TransactionActionKey = `delete-${transaction.id}`;
+
   const { isActionDisabled, isActionLoading, runAction } =
     useTransactionActions();
-  const actionKey = getDeleteActionKey(transaction.id);
+
   const { isOpen, open, close } = useTransactionModal(actionKey);
   const isSubmitting = isActionLoading(actionKey);
 

@@ -82,10 +82,6 @@ h2 {
   line-height: var(--leading-heading);
 }
 
-button {
-  cursor: pointer;
-}
-
 @media (max-width: 48rem /* 768px */) {
   h1 {
     font-size: var(--text-heading-sm);
