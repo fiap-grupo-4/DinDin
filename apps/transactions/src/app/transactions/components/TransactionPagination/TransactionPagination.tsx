@@ -80,16 +80,21 @@ export function TransactionPagination({
           onClick={() => onPageChange(currentPage + 1)}
         />
       </nav>
-      <div className="flex items-center justify-between md:w-auto w-full">
-        <p className="block md:hidden text-body-md lg:text-body-lg leading-body text-gray-700">
+      <div className="flex items-start md:items-center justify-between gap-2 md:w-fit w-full">
+        <p className="block md:hidden text-body-sm lg:text-body-lg leading-body text-gray-700">
           Mostrando {itemsPerPage} de {totalItems}
         </p>
-        <div>
-          <Select
-            options={pageSizeOptions}
-            value={pageSize}
-            onChange={(e) => onPageSizeChange(Number(e.target.value))}
-          />
+        <div className="flex flex-col md:flex-row md:items-center gap-2">
+          <p className="text-body-sm lg:text-body-lg leading-body text-gray-700">
+            Transações por página:
+          </p>
+          <div>
+            <Select
+              options={pageSizeOptions}
+              value={pageSize}
+              onChange={(e) => onPageSizeChange(Number(e.target.value))}
+            />
+          </div>
         </div>
       </div>
     </div>

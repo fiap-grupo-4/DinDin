@@ -10,7 +10,9 @@ export function ProfilePicture({ profileName, kind }: ProfilePictureProps) {
   };
 
   return (
-    <div className={`w-fit rounded-full px-4 py-2 ${profileKinds[kind]}`}>
+    <div
+      className={`w-fit rounded-full md:px-4 md:py-2 px-3 py-1 ${profileKinds[kind]}`}
+    >
       {profileName[0].toUpperCase()}
     </div>
   );

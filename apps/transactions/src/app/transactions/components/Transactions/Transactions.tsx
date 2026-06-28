@@ -80,7 +80,7 @@ export default function Transactions({ data }: TransactionsProps) {
           itemsPerPage={transactions.data.length}
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
-          className="mt-8"
+          className="mt-4 md:mt-8"
         />
       )}
     </>

@@ -15,7 +15,7 @@ export function Logo({ kind = "light", className = "" }: LogoProps) {
   };
   return (
     <span>
-      <BaseLogo className={`w-44 ${logoKinds[kind]} ${className}`} />
+      <BaseLogo className={`md:w-44 w-28 ${logoKinds[kind]} ${className}`} />
     </span>
   );
 }

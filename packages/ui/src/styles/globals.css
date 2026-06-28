@@ -90,6 +90,6 @@ h2 {
     font-size: var(--text-heading-xs);
   }
   h3 {
-    font-size: var(--text-heading-xs);
+    font-size: var(--text-body-md);
   }
 }
