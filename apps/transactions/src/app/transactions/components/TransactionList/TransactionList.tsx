@@ -4,6 +4,7 @@ import { Transaction, TransactionType } from '@/types/transactions.types';
 import { maskUtils } from '@/src/lib/utils';
 import { EditTransaction } from '../EditTransaction';
 import { DeleteTransaction } from '../DeleteTransaction';
+import { TransactionLoading } from '../TransactionLoading';
 
 interface TransactionListProps {
   loading?: boolean;
@@ -25,15 +26,20 @@ export default function TransactionList({
   transactions,
   hasActiveFilters = false,
 }: TransactionListProps) {
-  if (loading) return <ListContainer>Carregando</ListContainer>;
+  if (loading)
+    return (
+      <ListContainer>
+        <TransactionLoading />
+      </ListContainer>
+    );
 
   if (transactions.length === 0)
     return (
       <ListContainer>
-        <p className="text-center mb-8">
+        <p className="text-center text-body-lg md:text-heading-lg leading-body text-gray-700">
           {hasActiveFilters
             ? 'Nenhum resultado para os filtros aplicados.'
-            : 'Nenhuma transação encontrada.'}
+            : 'Nenhuma transação cadastrada.'}
         </p>
       </ListContainer>
     );
