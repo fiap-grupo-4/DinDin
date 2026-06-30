@@ -24,7 +24,7 @@ export function SummaryCardDetails({
   const { label: sign, style } = detailStyles[kind];
 
   return (
-    <div className="bg-gray-200 px-5 py-3 rounded-md w-full md:w-auto">
+    <div className="bg-gray-200 px-5 py-3 rounded-md w-full">
       <p className="text-heading-xs md:text-heading-sm">{label}</p>
       <p
         className={`text-heading-sm md:text-heading-lg min-h-[28px] flex items-center ${style}`}
