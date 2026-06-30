@@ -7,7 +7,7 @@ interface ContainerProps {
 
 export function Container({ children, className = "" }: ContainerProps) {
   return (
-    <div className={`bg-white rounded-xl p-6 shadow ${className}`}>
+    <div className={`bg-white rounded-xl p-2 md:p-6 shadow ${className}`}>
       {children}
     </div>
   );
