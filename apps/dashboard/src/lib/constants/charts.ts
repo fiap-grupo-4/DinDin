@@ -1,4 +1,5 @@
 export const CHART_COLORS = {
+  balance: '#009b70',
   income: '#16a34a',
   expense: '#ef2d57',
   grid: '#dedede',

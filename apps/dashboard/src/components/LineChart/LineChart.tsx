@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  BarChart as RechartsBarChart,
-  Bar,
+  LineChart as RechartsLineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -10,12 +10,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { BarChartDataItem } from '@/src/types/charts.types';
+import { LineChartDataItem } from '@/src/types/charts.types';
 import { maskUtils } from '@/src/lib/utils';
-import { CHART_COLORS, CHART_HEADING_CLASS, CHART_LEGEND_PROPS } from '../constants';
+import { CHART_COLORS, CHART_LEGEND_PROPS } from '../../lib/constants/charts';
+import { Heading } from '@dindin/ui';
 
-interface BarChartProps {
-  data: BarChartDataItem[];
+interface LineChartProps {
+  data: LineChartDataItem[];
   title?: string;
   heading?: string;
 }
@@ -59,11 +60,11 @@ function formatYAxis(value: number): string {
   return String(value);
 }
 
-export default function BarChart({
+export default function LineChart({
   data,
-  title = 'Receitas e despesas por mês',
+  title = 'Evolução do saldo mensal',
   heading,
-}: BarChartProps) {
+}: LineChartProps) {
   if (data.length === 0) {
     return (
       <p className="text-center text-body-sm text-gray-600 py-8">
@@ -73,16 +74,10 @@ export default function BarChart({
   }
 
   return (
-    <figure
-      className="w-full"
-      aria-label={title}
-      role="img"
-    >
-      {heading ? (
-        <figcaption className={CHART_HEADING_CLASS.bar}>{heading}</figcaption>
-      ) : null}
+    <figure className="w-full" aria-label={title} role="img">
+      {heading && <Heading title={heading} className="mb-8" />}
       <ResponsiveContainer width="100%" height={320}>
-        <RechartsBarChart
+        <RechartsLineChart
           data={data}
           margin={{ top: 8, right: 16, left: 8, bottom: 8 }}
         >
@@ -105,21 +100,16 @@ export default function BarChart({
               <span className="text-body-sm text-gray-700">{value}</span>
             )}
           />
-          <Bar
-            dataKey="receitas"
-            name="Receitas"
-            fill={CHART_COLORS.income}
-            radius={[4, 4, 0, 0]}
-            maxBarSize={48}
+          <Line
+            type="monotone"
+            dataKey="balance"
+            name="Balanço mensal"
+            stroke={CHART_COLORS.balance}
+            strokeWidth={3}
+            dot={{ r: 4 }}
+            activeDot={{ r: 6 }}
           />
-          <Bar
-            dataKey="despesas"
-            name="Despesas"
-            fill={CHART_COLORS.expense}
-            radius={[4, 4, 0, 0]}
-            maxBarSize={48}
-          />
-        </RechartsBarChart>
+        </RechartsLineChart>
       </ResponsiveContainer>
     </figure>
   );

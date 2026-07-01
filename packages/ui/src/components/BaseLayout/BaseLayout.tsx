@@ -24,7 +24,7 @@ export function BaseLayout({ children, className = "" }: BaseLayoutProps) {
     >
       <body className="min-h-full flex flex-col">
         <Header onToggle={() => setSidebarOpen((prev) => !prev)} />
-        <main className="flex-1  flex flex-col lg:grid lg:grid-cols-10 gap-3 p-6 w-full max-w-360 mx-auto transition-margin duration-200 sm:pl-20">
+        <main className="flex-1  flex flex-col lg:grid lg:grid-cols-10 gap-5 p-6 w-full max-w-360 mx-auto transition-margin duration-200 sm:pl-20">
           {sidebarOpen && (
             <div
               className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm"

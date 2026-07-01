@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { BarChartDataItem, PieChartDataItem } from '@/src/types/charts.types';
+import { LineChartDataItem, PieChartDataItem } from '@/src/types/charts.types';
 
 const PieChart = dynamic(
   () => import('../PieChart').then((mod) => mod.PieChart),
@@ -13,8 +13,8 @@ const PieChart = dynamic(
   }
 );
 
-const BarChart = dynamic(
-  () => import('../BarChart').then((mod) => mod.BarChart),
+const LineChart = dynamic(
+  () => import('../LineChart').then((mod) => mod.LineChart),
   {
     loading: () => (
       <div className="h-[320px] rounded-md bg-gray-200 animate-pulse" />
@@ -27,26 +27,26 @@ interface FinancialPieChartProps {
   data: PieChartDataItem[];
 }
 
-interface FinancialBarChartProps {
-  data: BarChartDataItem[];
+interface FinancialLineChartProps {
+  data: LineChartDataItem[];
 }
 
 export function FinancialPieChart({ data }: FinancialPieChartProps) {
   return (
     <PieChart
       data={data}
-      heading="Distribuição Receitas x Despesas"
+      heading="Minhas econômias"
       title="Distribuição entre receitas e despesas"
     />
   );
 }
 
-export function FinancialBarChart({ data }: FinancialBarChartProps) {
+export function FinancialLineChart({ data }: FinancialLineChartProps) {
   return (
-    <BarChart
+    <LineChart
       data={data}
-      heading="Evolução Mensal"
-      title="Receitas e despesas por mês"
+      heading="Evolução do saldo mensal"
+      title="Saldo mensal ao longo do tempo"
     />
   );
 }

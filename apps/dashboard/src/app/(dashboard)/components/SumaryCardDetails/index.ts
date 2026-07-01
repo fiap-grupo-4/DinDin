@@ -1,1 +1,0 @@
-export { SummaryCardDetails } from './SummaryCardDetails';

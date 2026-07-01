@@ -1,44 +1,52 @@
 import { Transaction } from '@/src/types/transactions.types';
 import {
-  BarChartDataItem,
   FinancialChartData,
   PieChartDataItem,
+  LineChartDataItem,
 } from '@/src/types/charts.types';
-import { CHART_COLORS } from '@/src/app/(dashboard)/components/charts/constants';
+import { CHART_COLORS } from '@/src/lib/constants/charts';
 
 const monthFormatter = new Intl.DateTimeFormat('pt-BR', {
   month: 'short',
   year: '2-digit',
 });
 
-function getMonthlyTotals(
+function getBalanceProgression(
   transactions: Transaction[]
-): BarChartDataItem[] {
-  const monthlyMap = new Map<string, BarChartDataItem>();
+): LineChartDataItem[] {
+  const monthlyMap = new Map<string, LineChartDataItem>();
 
-  for (const transaction of transactions) {
+  transactions.forEach((transaction) => {
     const date = new Date(transaction.createdAt);
     const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
     const monthLabel = monthFormatter.format(date);
 
     const current = monthlyMap.get(monthKey) ?? {
       month: monthLabel,
-      receitas: 0,
-      despesas: 0,
+      balance: 0,
     };
 
     if (transaction.transactionType === 'income') {
-      current.receitas += transaction.value;
+      current.balance += transaction.value;
     } else {
-      current.despesas += transaction.value;
+      current.balance -= transaction.value;
     }
 
     monthlyMap.set(monthKey, current);
-  }
+  });
+
+  let runningBalance = 0;
 
   return Array.from(monthlyMap.entries())
     .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-    .map(([, data]) => data);
+    .map(([, data]) => {
+      runningBalance += data.balance;
+
+      return {
+        month: data.month,
+        balance: runningBalance,
+      };
+    });
 }
 
 function getDistributionData(
@@ -73,6 +81,6 @@ export function buildFinancialChartData(
 ): FinancialChartData {
   return {
     pieData: getDistributionData(totalIncomes, totalExpenses),
-    barData: getMonthlyTotals(transactions),
+    lineData: getBalanceProgression(transactions),
   };
 }

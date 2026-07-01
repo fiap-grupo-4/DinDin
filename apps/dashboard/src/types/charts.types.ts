@@ -4,13 +4,12 @@ export interface PieChartDataItem {
   color: string;
 }
 
-export interface BarChartDataItem {
+export interface LineChartDataItem {
   month: string;
-  receitas: number;
-  despesas: number;
+  balance: number;
 }
 
 export interface FinancialChartData {
   pieData: PieChartDataItem[];
-  barData: BarChartDataItem[];
+  lineData: LineChartDataItem[];
 }

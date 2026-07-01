@@ -1,15 +1,12 @@
-import {
-  RecentsTransactionsList,
-  BalanceButton,
-  SummaryCardDetails,
-} from './components';
+import { RecentsTransactionsList, BalanceButton } from './components';
 import {
   FinancialPieChart,
-  FinancialBarChart,
-} from './components/charts/FinancialChartsSection';
+  FinancialLineChart,
+} from '../../components/FinancialChartsSection';
 import { Heading, ProfilePicture, Container, Link } from '@dindin/ui';
 import { getTransactionsAction } from './actions';
 import { buildFinancialChartData } from '@/src/lib/utils/chartData';
+import { ProgressBar } from './components/ProgressBar/ProgressBar';
 
 export default async function DashboardPage() {
   const result = await getTransactionsAction();
@@ -25,8 +22,8 @@ export default async function DashboardPage() {
           <p className="text-body-md lg:text-body-lg leading-body text-gray-700 my-4 md:my-7 lg:my-14">
             Com o DinDin, você acompanha seu dinheiro de forma simples e
             organizada. Gerencie suas transações, visualize seu saldo em tempo
-            real e tenha mais controle sobre sua vida financeira — tudo em um
-            só lugar.
+            real e tenha mais controle sobre sua vida financeira — tudo em um só
+            lugar.
           </p>
         </Container>
         <Container className="lg:col-span-4 self-start">
@@ -66,7 +63,7 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Container className="order-1 lg:order-none lg:col-span-6">
+      <Container className="order-1 lg:order-0 lg:col-span-4">
         <div className="flex items-center gap-3">
           <ProfilePicture profileName="fulano de tal" kind="primary" />
           <h1>Seja bem-vindo, Fulano de Tal</h1>
@@ -80,43 +77,40 @@ export default async function DashboardPage() {
         <BalanceButton balance={balance} />
       </Container>
 
-      <Container className="order-5 lg:order-none lg:col-span-4 lg:row-span-2 self-start">
-        <Heading title="Transações Recentes" className="mb-8 lg:mb-11" />
-        <RecentsTransactionsList transactions={transactions} />
-        <Link
-          label="Veja Mais"
-          href="/transactions"
-          iconRight="ArrowRightSLine"
-          className="mt-10 w-fit ml-auto"
-        />
-      </Container>
-
-      <Container className="order-2 lg:order-none lg:col-span-6">
-        <Heading
-          title="Resumo Financeiro"
-          subtitle="Veja um resumo de suas transações do último mês."
-          className="mb-6 lg:mb-8"
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <SummaryCardDetails
-            label="Receita"
-            value={totalIncomes}
-            kind="income"
-          />
-          <SummaryCardDetails
-            label="Despesa"
-            value={totalExpenses}
-            kind="expense"
-          />
-        </div>
-      </Container>
-
-      <Container className="order-3 lg:order-none lg:col-span-4">
+      <Container className="order-2 lg:order-0 lg:col-span-3">
         <FinancialPieChart data={chartData.pieData} />
       </Container>
 
-      <Container className="order-4 lg:order-none lg:col-span-6">
-        <FinancialBarChart data={chartData.barData} />
+      <div className="order-4 lg:order-0 lg:col-span-3 lg:row-span-2 flex flex-col">
+        <Container className="mb-5 flex-1">
+          <Heading title="Transações Recentes" className="mb-8 lg:mb-11" />
+          <RecentsTransactionsList transactions={transactions} />
+          <Link
+            label="Veja Mais"
+            href="/transactions"
+            iconRight="ArrowRightSLine"
+            className="mt-8 w-fit ml-auto"
+          />
+        </Container>
+        <Container>
+          <Heading title="Minhas economias" className="mb-8 lg:mb-11" />
+          <div className="flex flex-col gap-3">
+            <ProgressBar
+              title="Viagem RJ"
+              currentValue={869}
+              totalValue={5500}
+            />
+            <ProgressBar
+              title="Carro"
+              currentValue={42300}
+              totalValue={70000}
+            />
+          </div>
+        </Container>
+      </div>
+
+      <Container className="order-3 lg:order-0 lg:col-span-7">
+        <FinancialLineChart data={chartData.lineData} />
       </Container>
     </>
   );

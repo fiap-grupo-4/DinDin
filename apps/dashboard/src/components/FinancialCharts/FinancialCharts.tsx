@@ -2,7 +2,7 @@
 
 import { FinancialChartData } from '@/src/types/charts.types';
 import { PieChart } from '../PieChart';
-import { BarChart } from '../BarChart';
+import { LineChart } from '../LineChart';
 
 interface FinancialChartsProps {
   chartData: FinancialChartData;
@@ -16,10 +16,10 @@ export default function FinancialCharts({ chartData }: FinancialChartsProps) {
         heading="Distribuição Receitas x Despesas"
         title="Distribuição entre receitas e despesas"
       />
-      <BarChart
-        data={chartData.barData}
-        heading="Evolução Mensal"
-        title="Receitas e despesas por mês"
+      <LineChart
+        data={chartData.lineData}
+        heading="Evolução do saldo mensal"
+        title="Saldo mensal ao longo do tempo"
       />
     </div>
   );

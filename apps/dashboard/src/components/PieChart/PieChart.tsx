@@ -10,7 +10,12 @@ import {
 } from 'recharts';
 import { PieChartDataItem } from '@/src/types/charts.types';
 import { maskUtils } from '@/src/lib/utils';
-import { CHART_COLORS, CHART_HEADING_CLASS, CHART_LEGEND_PROPS } from '../constants';
+import {
+  CHART_COLORS,
+  CHART_HEADING_CLASS,
+  CHART_LEGEND_PROPS,
+} from '../../lib/constants/charts';
+import { Heading } from '@dindin/ui';
 
 interface PieChartProps {
   data: PieChartDataItem[];
@@ -32,8 +37,7 @@ function ChartTooltip({ active, payload, total = 0 }: ChartTooltipProps) {
   if (!active || !payload?.length) return null;
 
   const item = payload[0];
-  const percent =
-    total > 0 ? ((item.value / total) * 100).toFixed(1) : '0';
+  const percent = total > 0 ? ((item.value / total) * 100).toFixed(1) : '0';
 
   return (
     <div
@@ -103,14 +107,8 @@ export default function PieChart({
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
-    <figure
-      className="w-full"
-      aria-label={title}
-      role="img"
-    >
-      {heading ? (
-        <figcaption className={CHART_HEADING_CLASS.pie}>{heading}</figcaption>
-      ) : null}
+    <figure className="w-full" aria-label={title} role="img">
+      {heading && <Heading title={heading} className="mb-8" />}
       <ResponsiveContainer width="100%" height={300}>
         <RechartsPieChart>
           <Pie
